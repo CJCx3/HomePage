@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corkum Home Hub — TV Mode</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%BA%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root { --accent: #38bdf8; --accent2: #22c55e; --text: #f1f5f9; --muted: #64748b; }
+    [data-theme="violet"]  { --accent: #a78bfa; --accent2: #f472b6; }
+    [data-theme="emerald"] { --accent: #34d399; --accent2: #10b981; }
+    [data-theme="ember"]   { --accent: #fb923c; --accent2: #ef4444; }
+    [data-theme="gold"]    { --accent: #fbbf24; --accent2: #f59e0b; }
+    [data-theme="rose"]    { --accent: #fb7185; --accent2: #f43f5e; }
+
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body {
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      background: #020617;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+      user-select: none;
+      cursor: none;
+    }
+
+    /* Animated gradient bg */
+    .bg-glow {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent), transparent 65%);
+    }
+    .bg-glow-1 { width: 80vw; height: 80vw; top: -30vw; left: -20vw; animation: drift1 20s ease-in-out infinite alternate; }
+    .bg-glow-2 { width: 60vw; height: 60vw; bottom: -20vw; right: -10vw; background: radial-gradient(circle, color-mix(in srgb, var(--accent2) 8%, transparent), transparent 65%); animation: drift2 25s ease-in-out infinite alternate; }
+    @keyframes drift1 { from{transform:translate(0,0)} to{transform:translate(10vw,10vh)} }
+    @keyframes drift2 { from{transform:translate(0,0)} to{transform:translate(-8vw,-8vh)} }
+
+    /* Stars */
+    .stars { position:fixed; inset:0; z-index:0; overflow:hidden; }
+    .star  { position:absolute; border-radius:50%; background:white; animation:twinkle var(--dur) ease-in-out infinite alternate; }
+    @keyframes twinkle { from{opacity:.1} to{opacity:.7} }
+
+    /* Content */
+    .content {
+      position: relative; z-index: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      width: 100%; height: 100%; padding: 40px;
+      gap: 0;
+    }
+
+    .clock-wrap { margin-bottom: 12px; }
+    .clock-main {
+      font-size: clamp(72px, 18vw, 260px);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, var(--text) 20%, var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 40px color-mix(in srgb, var(--accent) 30%, transparent));
+    }
+    .clock-ampm {
+      font-size: clamp(20px, 4vw, 60px);
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: .1em;
+      -webkit-text-fill-color: var(--muted);
+    }
+    .date-line {
+      font-size: clamp(14px, 2.5vw, 36px);
+      color: var(--muted);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    /* Weather row */
+    .weather-row {
+      display: flex; align-items: center; gap: clamp(12px,2vw,28px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: clamp(10px,1.5vw,20px) clamp(20px,3vw,44px);
+      backdrop-filter: blur(12px);
+      margin-bottom: 30px;
+    }
+    .w-icon { font-size: clamp(30px, 5vw, 72px); line-height:1; }
+    .w-temp  { font-size: clamp(24px, 4vw, 60px); font-weight: 800; }
+    .w-desc  { font-size: clamp(12px, 1.6vw, 24px); color: var(--muted); }
+    .w-sep   { width:1px; height:clamp(30px,4vw,60px); background:rgba(255,255,255,.15); }
+    .w-detail { font-size: clamp(11px, 1.4vw, 20px); color: var(--muted); }
+
+    /* Message */
+    .msg-box {
+      font-size: clamp(12px, 1.8vw, 28px);
+      color: var(--muted);
+      max-width: 60vw;
+      text-align: center;
+      line-height: 1.6;
+      min-height: 2em;
+      transition: opacity .8s ease;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    .msg-box.fade { opacity: 0; }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; gap: clamp(16px,3vw,40px);
+      font-size: clamp(11px, 1.4vw, 20px);
+      color: var(--muted);
+    }
+    .stat-item { display:flex; align-items:center; gap:7px; }
+    .stat-item strong { color: var(--accent); }
+
+    /* Exit hint */
+    .exit-hint {
+      position: fixed; bottom: 24px; right: 28px;
+      font-size: clamp(10px,1.2vw,16px); color: rgba(100,116,139,.6);
+    }
+
+    /* Progress bar (time of day) */
+    .day-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 3px;
+      background: rgba(255,255,255,.06);
+    }
+    .day-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      transition: width 60s linear;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<div class="content">
+
+  <div class="clock-wrap">
+    <div class="clock-main" id="a-clock">12:00</div>
+    <div class="clock-ampm" id="a-ampm">PM</div>
+  </div>
+  <div class="date-line" id="a-date">MONDAY · JANUARY 1 · 2026</div>
+
+  <div class="weather-row" id="a-weather">
+    <div class="w-icon" id="a-wicon">🌡️</div>
+    <div>
+      <div class="w-temp" id="a-wtemp">--°</div>
+      <div class="w-desc" id="a-wdesc">Loading…</div>
+    </div>
+    <div class="w-sep" id="a-wsep"></div>
+    <div id="a-wdetail"></div>
+  </div>
+
+  <div class="msg-box" id="a-msg">Welcome home.</div>
+
+  <div class="stats-row">
+    <div class="stat-item">✅ <strong id="a-todos">0</strong> tasks remaining</div>
+    <div class="stat-item">🛒 <strong id="a-grocery">0</strong> grocery items</div>
+    <div class="stat-item">💬 <strong id="a-msgs">0</strong> messages</div>
+  </div>
+
+</div>
+
+<div class="exit-hint">Press <strong>any key</strong> or click to return to hub</div>
+<div class="day-bar"><div class="day-fill" id="day-fill"></div></div>
+
+<script>
+// ─── STORAGE ───
+const get = (k, def=null) => { try{const v=localStorage.getItem('hub_'+k);return v!==null?JSON.parse(v):def;}catch{return def;} };
+
+// ─── THEME ───
+const s = get('settings', {});
+if (s.theme && s.theme !== 'default') document.documentElement.setAttribute('data-theme', s.theme);
+
+// ─── STARS ───
+(function createStars() {
+  const c = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement('div');
+    el.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    el.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*4}s;opacity:${Math.random()*.4};animation-delay:${Math.random()*5}s;`;
+    c.appendChild(el);
+  }
+})();
+
+// ─── CLOCK (Eastern Time — Seven Valleys, PA) ───
+const TZ = 'America/New_York';
+function tick() {
+  const now = new Date();
+  const h12 = now.toLocaleTimeString('en-US', { timeZone: TZ, hour:'2-digit', minute:'2-digit', hour12:true });
+  const [time, ampm] = h12.split(' ');
+  document.getElementById('a-clock').textContent = time;
+  document.getElementById('a-ampm').textContent  = ampm || '';
+  document.getElementById('a-date').textContent  = now.toLocaleDateString('en-US',{timeZone:TZ,weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase().replace(',','·').replace(', ','·');
+
+  // Day progress bar (based on Eastern Time)
+  const parts = new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(now);
+  const gp = (t) => parseInt(parts.find(p => p.type === t)?.value || '0', 10);
+  const pct = (gp('hour')*3600 + gp('minute')*60 + gp('second')) / 86400 * 100;
+  document.getElementById('day-fill').style.width = pct + '%';
+}
+setInterval(tick, 1000); tick();
+
+// ─── WEATHER ───
+async function loadWeather() {
+  const settings = get('settings', {});
+  const city = settings.weatherCity || 'Seven Valleys';
+  const unit = settings.weatherUnit || 'fahrenheit';
+  try {
+    const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
+    const geo    = await geoRes.json();
+    if (!geo.results?.length) return;
+    const { latitude, longitude, name } = geo.results[0];
+    const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&temperature_unit=${unit}&wind_speed_unit=mph&timezone=auto`);
+    const w    = await wRes.json();
+    const cur  = w.current;
+    const WMO  = {0:['Clear Sky','☀️'],1:['Mainly Clear','🌤️'],2:['Partly Cloudy','⛅'],3:['Overcast','☁️'],45:['Foggy','🌫️'],48:['Icy Fog','🌫️'],51:['Drizzle','🌦️'],53:['Drizzle','🌧️'],55:['Heavy Drizzle','🌧️'],61:['Light Rain','🌧️'],63:['Rain','🌧️'],65:['Heavy Rain','🌧️'],71:['Light Snow','❄️'],73:['Snow','❄️'],75:['Heavy Snow','❄️'],80:['Showers','🌦️'],81:['Showers','🌦️'],82:['Heavy Showers','🌧️'],95:['Thunderstorm','⛈️'],96:['Thunderstorm','⛈️'],99:['Thunderstorm','⛈️']};
+    const [desc, icon] = WMO[cur.weather_code] || ['--','🌡️'];
+    const sym = unit === 'fahrenheit' ? '°F' : '°C';
+    document.getElementById('a-wicon').textContent  = icon;
+    document.getElementById('a-wtemp').textContent  = Math.round(cur.temperature_2m) + sym;
+    document.getElementById('a-wdesc').textContent  = desc + ' · ' + name;
+    document.getElementById('a-wdetail').innerHTML  = `<div class="w-detail">💧 ${cur.relative_humidity_2m}%</div><div class="w-detail">💨 ${Math.round(cur.wind_speed_10m)} mph</div>`;
+    document.getElementById('a-wsep').style.display = 'block';
+  } catch { document.getElementById('a-wdesc').textContent = 'Weather unavailable'; }
+}
+loadWeather();
+setInterval(loadWeather, 30 * 60 * 1000);
+
+// ─── MESSAGES ROTATOR ───
+let msgIdx = 0;
+const QUOTES = [
+  "Make it a great day.",
+  "Home is where the hub is.",
+  "You've got this.",
+  "Remember to stay hydrated! 💧",
+  "What's for dinner tonight? 🍽️",
+  "Check your task list!",
+];
+function rotateMsgFn() {
+  const msgs = get('messages', []);
+  const el   = document.getElementById('a-msg');
+  if (!el) return;
+  let text;
+  if (msgs.length) {
+    const m = msgs[msgIdx % msgs.length];
+    text = `${m.from}: "${m.body.slice(0,120)}"`;
+    msgIdx = (msgIdx + 1) % msgs.length;
+  } else {
+    text = QUOTES[msgIdx % QUOTES.length];
+    msgIdx = (msgIdx + 1) % QUOTES.length;
+  }
+  el.classList.add('fade');
+  setTimeout(() => { el.textContent = text; el.classList.remove('fade'); }, 800);
+}
+rotateMsgFn();
+setInterval(rotateMsgFn, 12000);
+
+// ─── STATS ───
+function updateStats() {
+  const todos   = get('todos', []).filter(t => !t.done).length;
+  const grocery = get('grocery', []).filter(g => !g.checked).length;
+  const msgs    = get('messages', []).length;
+  document.getElementById('a-todos')  && (document.getElementById('a-todos').textContent   = todos);
+  document.getElementById('a-grocery') && (document.getElementById('a-grocery').textContent = grocery);
+  document.getElementById('a-msgs')   && (document.getElementById('a-msgs').textContent    = msgs);
+}
+updateStats();
+setInterval(updateStats, 30000);
+
+// ─── EXIT ───
+['keydown','click','touchstart'].forEach(ev => {
+  document.addEventListener(ev, () => {
+    window.location.href = 'index.html';
+  }, { once: true });
+});
+</script>
+</body>
+</html>

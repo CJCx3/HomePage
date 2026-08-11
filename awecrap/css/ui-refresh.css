@@ -1,0 +1,199 @@
+/* ============================================================
+   AWECRAP — ui-refresh.css · the UI makeover layer (V.0.4.12)
+   Loaded LAST, so it wins equal-specificity ties over styles.css.
+   POV: the hall is already beautiful, but its craft is uneven —
+   radii, shadows and motion were hand-tuned per component and there
+   was no keyboard-focus affordance. This layer unifies all of it into
+   ONE material system (a single bevel language, one elevation ladder,
+   one motion curve, unified radii), adds a gold focus ring that reads
+   like leaf catching light, and gives the chrome crisper plates.
+   SAME hall, SAME palette — every surface now cut from one cloth.
+   Reimagines UI/chrome only; base character & background art untouched.
+   All new motion is gated behind .gfx-0/.gfx-1 and .reduce-motion,
+   matching the project's existing performance/accessibility contract.
+   ============================================================ */
+
+:root {
+  /* radius scale — collapses the old 4/5/6/8/10px grab-bag */
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  /* motion — one enter curve, one exit, one snappy press */
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 340ms;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in: cubic-bezier(.4, 0, 1, 1);
+
+  /* elevation ladder — consistent drop shadows */
+  --el-1: 0 4px 12px rgba(0, 0, 0, .5);
+  --el-2: 0 10px 26px rgba(0, 0, 0, .55);
+  --el-3: 0 30px 80px rgba(0, 0, 0, .62);
+
+  /* the signature ornate double-frame, as one reusable token */
+  --bevel: inset 0 0 0 3px rgba(10, 4, 5, .9), inset 0 0 0 4px rgba(185, 141, 74, .30), inset 0 1px 0 rgba(240, 220, 174, .18);
+  --bevel-hot: inset 0 0 0 3px rgba(10, 4, 5, .9), inset 0 0 0 4px rgba(232, 201, 135, .50), inset 0 1px 0 rgba(240, 220, 174, .28);
+
+  /* the gold focus ring — the one accessibility affordance the UI lacked */
+  --focus-ring: 0 0 0 2px rgba(8, 3, 4, .95), 0 0 0 4px var(--gold-bright), 0 0 16px rgba(232, 201, 135, .55);
+}
+
+/* ============ global affordances ============ */
+
+/* Keyboard focus: a gold ring on anything focusable. :focus-visible keeps it
+   off for mouse users. outline (not box-shadow) so it never fights a
+   component's own bevel, and rounds to the element in modern engines. */
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+}
+/* the hero controls earn the full glowing ring */
+.btn-play:focus-visible,
+.side-btn:focus-visible,
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+/* never leave a bare browser outline on click */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Refined gold scrollbars everywhere (was default/near-default). */
+* { scrollbar-width: thin; scrollbar-color: var(--gold) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--ember-deep));
+  border: 2px solid transparent; border-radius: var(--r-pill); background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--gold-bright), var(--gold)); background-clip: padding-box; }
+
+::selection { background: rgba(185, 141, 74, .35); color: var(--cream); }
+
+/* ============ buttons — one plate language ============ */
+.btn {
+  border-radius: var(--r-md);
+  box-shadow: var(--el-1), inset 0 1px 0 rgba(240, 220, 174, .12);
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out),
+              opacity var(--dur) var(--ease-out);
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--gold-bright);
+  box-shadow: var(--el-2), inset 0 1px 0 rgba(240, 220, 174, .18);
+}
+.btn:active:not(:disabled) { transform: translateY(1px); box-shadow: var(--el-1); transition-duration: var(--dur-fast); }
+
+.btn-primary {
+  border-radius: var(--r-md);
+  background:
+    radial-gradient(120% 120% at 50% -10%, rgba(216, 57, 47, .35), transparent 60%),
+    linear-gradient(180deg, var(--oxblood-2), var(--oxblood));
+  box-shadow: var(--el-2), inset 0 1px 0 rgba(240, 220, 174, .28), inset 0 -2px 8px rgba(0, 0, 0, .4);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(216, 57, 47, .45), inset 0 1px 0 rgba(240, 220, 174, .32);
+}
+.btn-primary:active:not(:disabled) { transform: translateY(1px); }
+
+/* menu side-buttons — unify with the plate + smoother, warmer hover */
+.side-btn {
+  border-radius: var(--r-md);
+  box-shadow: var(--el-1), var(--bevel);
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out);
+}
+.side-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-bright);
+  box-shadow: 0 12px 28px rgba(216, 57, 47, .28), var(--bevel-hot);
+}
+.side-btn:active { transform: translateY(0); box-shadow: var(--el-1), var(--bevel); }
+.side-ico { transition: transform var(--dur) var(--ease-out); }
+.side-btn:hover .side-ico { transform: translateY(-1px) scale(1.08); }
+
+/* ============ the hero: PLAY ============ */
+.btn-play {
+  border-radius: var(--r-md);
+  box-shadow:
+    0 16px 44px rgba(122, 26, 31, .55), 0 0 64px rgba(216, 57, 47, .22),
+    var(--bevel-hot);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
+}
+.btn-play:hover {
+  transform: translateY(-3px) scale(1.012);
+  box-shadow:
+    0 22px 60px rgba(216, 57, 47, .55), 0 0 110px rgba(216, 57, 47, .34),
+    var(--bevel-hot);
+}
+.btn-play:active { transform: translateY(0) scale(.996); }
+/* a slow ember breath — the one signature idle flourish (gated, Ultra/High only) */
+body:not(.gfx-0):not(.gfx-1):not(.reduce-motion) .btn-play {
+  animation: playBreath 4.8s var(--ease-out) infinite;
+}
+@keyframes playBreath {
+  0%, 100% { box-shadow: 0 16px 44px rgba(122, 26, 31, .55), 0 0 64px rgba(216, 57, 47, .22), var(--bevel-hot); }
+  50%      { box-shadow: 0 18px 52px rgba(122, 26, 31, .6),  0 0 92px rgba(216, 57, 47, .34), var(--bevel-hot); }
+}
+/* hover must win over the idle breath */
+body .btn-play:hover { animation: none; }
+
+/* ============ overlays & modal cards ============ */
+.modal-card {
+  border-radius: var(--r-lg);
+  box-shadow: var(--el-3), var(--bevel), 0 0 0 1px rgba(0, 0, 0, .5);
+}
+/* a composed entrance — settles rather than snaps (gated for reduced motion) */
+body:not(.reduce-motion) .overlay:not(.hidden) .modal-card {
+  animation: modalIn var(--dur-slow) var(--ease-out) both;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(10px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+.ornate-title { text-shadow: 0 0 22px rgba(232, 201, 135, .3); }
+
+/* ============ run top bar ============ */
+#topbar {
+  box-shadow: var(--el-1), 0 1px 0 rgba(185, 141, 74, .22);
+  backdrop-filter: saturate(1.05);
+}
+.relic { transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
+.tb-relics .relic:hover { transform: translateY(-2px) scale(1.12); }
+
+/* ============ duel strips — unify with the plate ============ */
+.opp-strip, .you-strip {
+  border-radius: var(--r-md);
+  box-shadow: var(--bevel), var(--el-1);
+  transition: box-shadow var(--dur) var(--ease-out);
+}
+#opp-panel.active-turn, #you-panel.active-turn {
+  box-shadow: 0 0 0 1px rgba(232, 201, 135, .55), 0 0 38px rgba(255, 156, 74, .2);
+}
+
+/* ============ HP bars — a whisper of heat-shimmer ============ */
+.hp-fill { position: absolute; overflow: hidden; }
+.hp-fill::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 240, 210, .28) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+body:not(.gfx-0):not(.gfx-1):not(.reduce-motion) .hp-fill::after {
+  animation: hpSheen 4.2s var(--ease-out) infinite;
+}
+@keyframes hpSheen { 0% { transform: translateX(-120%); } 55%, 100% { transform: translateX(120%); } }
+
+/* ============ inputs ============ */
+.seed-frame input { border-radius: var(--r-sm); transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
+.seed-frame input:focus-visible { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 0 2px rgba(232, 201, 135, .35), inset 0 1px 4px rgba(0, 0, 0, .6); }
+
+/* ============ low-end / reduced-motion belt-and-braces ============
+   The gated rules above already cover .gfx-0/.gfx-1/.reduce-motion, but make
+   the intent explicit so a future edit can't accidentally re-enable motion. */
+body.gfx-0 .hp-fill::after, body.gfx-1 .hp-fill::after, body.reduce-motion .hp-fill::after { display: none; }
+body.reduce-motion .btn-play, body.gfx-0 .btn-play, body.gfx-1 .btn-play { animation: none; }

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AweCrap</title>
+  <link rel="stylesheet" href="css/styles.css?v=gfx47" />
+  <link rel="stylesheet" href="css/tutorial.css?v=gfx47" />
+  <link rel="stylesheet" href="css/freeplay.css?v=gfx47" />
+  <link rel="stylesheet" href="css/ui-refresh.css?v=gfx47" />
+</head>
+<body>
+  <div id="vignette"></div>
+  <div class="motes" id="motes"><i></i><i></i><i></i></div>
+
+  <!-- ===== Main menu ===== -->
+  <div id="start-screen" class="overlay menu-scene">
+    <div class="scene-frame"></div>
+    <button class="menu-quit" id="quit-btn" title="Quit game"><span class="q-ico">⏻</span> QUIT</button>
+    <div class="wall-sign left"><span>LUCK IS TEMPORARY.</span><span>REGRET IS FOREVER.</span></div>
+    <div class="wall-sign right"><span>FORTUNE</span><span>FAVORS THE BOLD</span></div>
+
+    <aside class="menu-side">
+      <button class="side-btn" data-modal="modal-settings"><span class="side-ico">⚙</span> SETTINGS</button>
+      <button class="side-btn" id="learn-btn" data-modal="modal-learn"><span class="side-ico">🎓</span> LEARN</button>
+      <button class="side-btn" id="freeplay-btn"><span class="side-ico">🎲</span> PRACTICE</button>
+      <button class="side-btn" id="records-btn" data-modal="modal-records"><span class="side-ico">🏆</span> RECORDS</button>
+      <button class="side-btn" id="updates-btn"><span class="side-ico">✦</span> UPDATES</button>
+      <button class="side-btn" data-modal="modal-credits"><span class="side-ico">♟</span> CREDITS</button>
+    </aside>
+
+    <div class="menu-center">
+      <div class="crest">
+        <span class="crest-rays"></span>
+        <span class="crest-spade">♠</span>
+      </div>
+      <div class="logo-wrap">
+        <h1 class="logo">AweCrap</h1>
+        <span class="version-tag">V.0.1.0</span>
+      </div>
+      <div class="logo-banner"><i>♦</i> A CASINO FROM PURGATORY <i>♦</i></div>
+
+      <div class="floor-medallion"><span>♠</span></div>
+
+      <button id="begin-btn" class="btn-play">P L A Y</button>
+      <button id="continue-btn" class="continue-btn hidden">↺ CONTINUE RUN</button>
+
+      <button class="soul-frame" id="soul-btn" data-modal="modal-character" title="Choose your soul">
+        <span class="soul-lbl">SOUL</span><b class="soul-name" id="soul-name">The Gambler</b><span class="soul-arrow">▾</span>
+      </button>
+
+      <button class="soul-frame mod-frame" id="mods-btn" data-modal="modal-modifiers" title="Run modifiers">
+        <span class="soul-lbl">MODIFIERS</span><b class="soul-name" id="mods-count">None</b><span class="soul-arrow">▾</span>
+      </button>
+
+      <label class="seed-frame">
+        <span class="seed-label">CUSTOM SEED</span>
+        <input id="seed-input" type="text" inputmode="text" placeholder="Enter seed…" autocomplete="off" />
+        <span class="seed-die">⚄</span>
+      </label>
+
+      <div class="menu-foot">IN PURGATORY, EVEN FORTUNE TAKES A FEE.</div>
+    </div>
+  </div>
+
+  <!-- ===== Menu modals ===== -->
+  <div class="overlay menu-modal hidden" id="modal-settings">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Settings</h3>
+      <div class="setting-row">
+        <label for="difficulty-slider">Difficulty</label>
+        <input type="range" id="difficulty-slider" min="0" max="4" step="1" value="2" />
+        <div class="setting-value"><b id="diff-name"></b><span id="diff-desc"></span></div>
+      </div>
+      <div class="setting-row">
+        <label for="pace-slider">Pacing</label>
+        <input type="range" id="pace-slider" min="40" max="170" step="10" value="100" />
+        <div class="setting-value"><b id="pace-name"></b><span>how long the table lingers on each beat</span></div>
+      </div>
+      <div class="setting-row">
+        <label for="music-slider">Music volume</label>
+        <input type="range" id="music-slider" min="0" max="100" step="5" value="70" />
+        <div class="setting-value"><b id="music-name"></b><span>loops through menus and every fight</span></div>
+      </div>
+      <div class="setting-row">
+        <label for="gfx-slider">Graphics quality</label>
+        <input type="range" id="gfx-slider" min="0" max="3" step="1" value="2" />
+        <div class="setting-value"><b id="gfx-name"></b><span id="gfx-desc"></span></div>
+      </div>
+      <p class="setting-note">Lower graphics for smoother play on weaker machines. Settings save automatically.</p>
+      <div class="setting-row toggle">
+        <label for="cb-toggle">Colorblind mode</label>
+        <input type="checkbox" id="cb-toggle" />
+      </div>
+      <p class="setting-note">Adds shapes and always-on labels to the chips and damage numbers, so nothing rides on colour alone.</p>
+      <div class="setting-row toggle">
+        <label for="checkpoint-toggle">Checkpoints</label>
+        <input type="checkbox" id="checkpoint-toggle" />
+      </div>
+      <p class="setting-note">A gentler run: if you fall, the house drags you back to the top of your current act instead of ending the run — but that floor’s spoils are forfeit. Off is the true, one-life gauntlet.</p>
+      <div class="setting-row toggle">
+        <label for="reduce-motion-toggle">Reduced motion</label>
+        <input type="checkbox" id="reduce-motion-toggle" />
+      </div>
+      <p class="setting-note">Stills the flicker, pulse and dice-tumble animations for motion-sensitive players — separate from the graphics setting, and works at any graphics quality.</p>
+      <div class="setting-row">
+        <label for="textscale-slider">Text size</label>
+        <input type="range" id="textscale-slider" min="0" max="2" step="1" value="0" />
+        <div class="setting-value"><b id="textscale-name">Normal</b><span>enlarges the log, cards, tooltips and menus</span></div>
+      </div>
+      <div class="setting-row toggle">
+        <label for="contrast-toggle">High contrast</label>
+        <input type="checkbox" id="contrast-toggle" />
+      </div>
+      <p class="setting-note">Brighter text, stronger borders and darker panels for easier reading — sits on top of any graphics quality.</p>
+      <div class="setting-row danger-row">
+        <label>Personal data</label>
+        <div class="danger-line">
+          <button class="wipe-btn" id="wipe-data-btn">Wipe all data</button>
+          <span class="setting-note">Erase every save, unlock, record, and setting — a clean first-time start.</span>
+        </div>
+        <div class="wipe-confirm hidden" id="wipe-confirm">
+          <span class="wipe-warn">This erases <b>everything</b> — saved runs, settings, your Ascension climb, the Bestiary, and unlocked souls. It <b>cannot be undone</b>.</span>
+          <div class="wipe-confirm-btns">
+            <button class="wipe-yes" id="wipe-yes">Wipe &amp; restart</button>
+            <button class="wipe-no" id="wipe-no">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary modal-close">Done</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-credits">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Credits</h3>
+      <div class="credits-list" id="credits-list"></div>
+      <button class="btn btn-primary modal-close">Done</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-learn">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Learn AweCrap</h3>
+      <p class="setting-note">New here? Read the rules, or learn by playing — whichever suits you.</p>
+      <div class="learn-choices">
+        <button class="learn-choice" id="learn-read">
+          <span class="learn-ico">🎓</span>
+          <b>Read the Rules</b>
+          <span>The illustrated guide — real craps, the AweCrap twists, every bet, the enemies &amp; bosses, plus a searchable reference.</span>
+        </button>
+        <button class="learn-choice" id="learn-play">
+          <span class="learn-ico">▶</span>
+          <b>Guided Practice</b>
+          <span>Learn by doing — a slow, hand-held bout that walks you through each mechanic against a harmless dummy.</span>
+        </button>
+      </div>
+      <button class="btn btn-primary modal-close">Back</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-character">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Choose Your Soul</h3>
+      <p class="setting-note">Each soul starts with a different deck, a signature relic, and a preferred line — but you can still play any way you like.</p>
+      <div class="char-choices" id="char-choices"></div>
+      <button class="btn btn-primary modal-close">Back</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-modifiers">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Run Modifiers</h3>
+      <p class="setting-note">Optional challenges for your next run — each one bumps your score. Stack as many as you dare. They apply the moment you press PLAY.</p>
+      <div class="mod-choices" id="mod-choices"></div>
+      <div class="mod-score" id="mod-score"></div>
+      <button class="btn btn-primary modal-close">Done</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-records">
+    <div class="modal-card ornate records-card">
+      <h3 class="ornate-title">Records</h3>
+      <div class="rec-tabs">
+        <button class="rec-tab on" data-rec="ach">Achievements</button>
+        <button class="rec-tab" data-rec="unlocks">Unlocks</button>
+        <button class="rec-tab" data-rec="codex">Codex</button>
+        <button class="rec-tab" data-rec="history">History</button>
+      </div>
+      <div class="rec-body" id="rec-body"></div>
+      <button class="btn btn-primary modal-close">Done</button>
+    </div>
+  </div>
+
+  <div class="overlay menu-modal hidden" id="modal-updates">
+    <div class="modal-card ornate updates-card">
+      <button class="modal-x" data-close-updates title="Close">✕</button>
+      <h3 class="ornate-title">What's New</h3>
+      <div class="updates-body" id="updates-body"></div>
+      <button class="btn btn-primary" data-close-updates>Close</button>
+    </div>
+  </div>
+
+  <!-- ===== Pause menu (from the map) ===== -->
+  <div class="overlay menu-modal hidden" id="pause-overlay">
+    <div class="modal-card ornate">
+      <h3 class="ornate-title">Paused</h3>
+      <p class="setting-note">The floor waits. It always waits.</p>
+      <div class="pause-btns">
+        <button class="btn btn-primary" id="pause-resume">Resume</button>
+        <button class="btn" id="pause-save">Save &amp; Quit</button>
+        <button class="btn" id="pause-abandon">Abandon Run</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Save slots (save/load) ===== -->
+  <div class="overlay menu-modal hidden" id="saves-overlay">
+    <div class="modal-card ornate">
+      <button class="modal-x" id="saves-x" title="Close">✕</button>
+      <h3 class="ornate-title" id="saves-title">Save Slots</h3>
+      <p class="setting-note" id="saves-sub">Choose a slot.</p>
+      <div class="save-slots" id="save-slots"></div>
+    </div>
+  </div>
+
+  <!-- ===== Quit ===== -->
+  <div class="overlay hidden" id="quit-overlay">
+    <div class="modal-card ornate" style="text-align:center;">
+      <div class="crest small"><span class="crest-rays"></span><span class="crest-spade">♠</span></div>
+      <h3 class="ornate-title">The House Closes</h3>
+      <p class="setting-note">Thanks for playing AweCrap. You may close this window now — the door will still be here.</p>
+      <button class="btn btn-primary" id="quit-back">Actually, stay</button>
+    </div>
+  </div>
+
+  <!-- ===== Run top bar ===== -->
+  <header id="topbar" class="hidden">
+    <span class="tb-act" id="tb-act">ACT I</span>
+    <span class="tb-sep">|</span>
+    <span class="tb-item hp"><span class="tb-ico">♥</span> <b id="tb-hp">100</b><span id="tb-maxhp">/100</span></span>
+    <span class="tb-item coins"><span class="tb-ico">◎</span> <b id="tb-coins">0</b></span>
+    <span class="tb-item deck"><span class="tb-ico">🂠</span> <b id="tb-deck">10</b></span>
+    <span class="tb-relics" id="tb-relics"></span>
+    <button class="btn btn-mini" id="view-deck-btn">Deck</button>
+  </header>
+
+  <!-- ===== Map ===== -->
+  <main id="map-screen" class="screen hidden">
+    <div class="scene-frame"></div>
+    <button class="map-menu-btn" id="map-menu-btn">☰ Menu</button>
+    <div class="wall-sign left small"><span>STAKE</span><span>YOUR FATE</span></div>
+    <div class="wall-sign right small"><span>DEALER</span><span>DRAWS FIRST</span></div>
+    <h2 class="screen-title ornament" id="map-title">The Basement</h2>
+    <p class="screen-sub serif-i" id="map-sub"></p>
+    <div class="map-wrap"><svg id="map-svg" preserveAspectRatio="xMidYMin meet"></svg></div>
+  </main>
+
+  <!-- ===== Duel ===== -->
+  <main id="board" class="screen hidden">
+    <div id="stage-lamp"></div>
+    <!-- Board ambience — idle life behind the felt (off under reduce-motion / gfx-0). -->
+    <div class="board-amb" id="board-amb" aria-hidden="true">
+      <span class="amb-smoke s1"></span>
+      <span class="amb-smoke s2"></span>
+      <span class="amb-sign">NO<br/>LIMIT</span>
+      <span class="amb-dealer"></span>
+    </div>
+
+    <!-- Opponent strip -->
+    <section class="opp-strip" id="opp-panel">
+      <div class="opp-portrait-wrap hidden" id="opp-portrait-wrap">
+        <img class="opp-portrait" id="opp-portrait" alt="" draggable="false" />
+      </div>
+      <div class="opp-main">
+        <div class="opp-info">
+          <span class="pname" id="opp-name">Opponent</span>
+          <span class="opp-arch serif-i" id="opp-arch"></span>
+          <span class="status-badge" id="opp-status"></span>
+          <span class="hand-count" id="opp-hand"></span>
+        </div>
+        <div class="opp-mid">
+          <div class="hpbar" id="opp-hpbar"><div class="hp-trail" id="opp-trail"></div><div class="hp-fill" id="opp-fill"></div><span class="hp-text" id="opp-hptext"></span></div>
+          <div class="dice small" id="opp-dice"><div class="die"></div><div class="die"></div></div>
+        </div>
+        <div class="opp-chips" id="opp-chips"></div>
+      </div>
+    </section>
+
+    <!-- The craps table -->
+    <section class="craps-rail">
+      <div class="craps-table" id="craps-table">
+        <div class="ct-head">
+          <div class="risk-pill" id="risk"><span class="risk-label">AT RISK</span><span class="risk-amt" id="risk-amt">0</span></div>
+          <div class="table-brand"><i>✦</i> AWECRAP <i>✦</i><small>· PURGATORY CASINO ·</small></div>
+          <div class="round-pill" id="round-pill">ROUND 1</div>
+        </div>
+
+        <div class="felt-grid">
+          <div class="tz-places">
+            <div class="zone place" data-bet="place" data-num="4"><span class="boxnum">4</span><span class="paysml">9:5</span><span class="puck" data-puck="4">ON</span><div class="chips-here" data-zone="place-4"></div></div>
+            <div class="zone place" data-bet="place" data-num="5"><span class="boxnum">FIVE</span><span class="paysml">7:5</span><span class="puck" data-puck="5">ON</span><div class="chips-here" data-zone="place-5"></div></div>
+            <div class="zone place" data-bet="place" data-num="6"><span class="boxnum">SIX</span><span class="paysml">7:6</span><span class="puck" data-puck="6">ON</span><div class="chips-here" data-zone="place-6"></div></div>
+            <div class="zone place" data-bet="place" data-num="8"><span class="boxnum">8</span><span class="paysml">7:6</span><span class="puck" data-puck="8">ON</span><div class="chips-here" data-zone="place-8"></div></div>
+            <div class="zone place" data-bet="place" data-num="9"><span class="boxnum">NINE</span><span class="paysml">7:5</span><span class="puck" data-puck="9">ON</span><div class="chips-here" data-zone="place-9"></div></div>
+            <div class="zone place" data-bet="place" data-num="10"><span class="boxnum">10</span><span class="paysml">9:5</span><span class="puck" data-puck="10">ON</span><div class="chips-here" data-zone="place-10"></div></div>
+          </div>
+
+          <div class="tz-come">
+            <div class="zone dontcome" data-bet="dontcome"><span class="zlabel sm">DON'T<br/>COME</span><div class="chips-here" data-zone="dontcome"></div></div>
+            <div class="zone come" data-bet="come"><span class="zlabel big">C O M E</span><div class="chips-here" data-zone="come"></div></div>
+          </div>
+
+          <div class="zone field" data-bet="field">
+            <span class="zlabel">FIELD</span>
+            <span class="field-nums"><i class="circ">2</i><i>3</i><i>4</i><i>9</i><i>10</i><i>11</i><i class="circ">12</i></span>
+            <span class="paysml">2 pays double · 12 pays triple</span>
+            <div class="chips-here" data-zone="field"></div>
+          </div>
+
+          <div class="tz-props">
+            <div class="props-title">— CENTER BETS —</div>
+            <div class="props-grid">
+              <div class="zone prop" data-bet="hard" data-num="4"><span class="zlabel sm">HARD 4</span><small>7:1</small><div class="chips-here" data-zone="hard-4"></div></div>
+              <div class="zone prop" data-bet="hard" data-num="6"><span class="zlabel sm">HARD 6</span><small>9:1</small><div class="chips-here" data-zone="hard-6"></div></div>
+              <div class="zone prop" data-bet="hard" data-num="8"><span class="zlabel sm">HARD 8</span><small>9:1</small><div class="chips-here" data-zone="hard-8"></div></div>
+              <div class="zone prop" data-bet="hard" data-num="10"><span class="zlabel sm">HARD 10</span><small>7:1</small><div class="chips-here" data-zone="hard-10"></div></div>
+              <div class="zone prop" data-bet="any7"><span class="zlabel sm">ANY SEVEN</span><small>4:1</small><div class="chips-here" data-zone="any7"></div></div>
+              <div class="zone prop" data-bet="eleven"><span class="zlabel sm">YO (11)</span><small>15:1</small><div class="chips-here" data-zone="eleven"></div></div>
+              <div class="zone prop" data-bet="aces"><span class="zlabel sm">ACES (2)</span><small>30:1</small><div class="chips-here" data-zone="aces"></div></div>
+              <div class="zone prop" data-bet="boxcars"><span class="zlabel sm">BOXCARS</span><small>30:1</small><div class="chips-here" data-zone="boxcars"></div></div>
+            </div>
+          </div>
+
+          <div class="tz-stage">
+            <div class="stage-who" id="stage-who"></div>
+            <div class="dice" id="you-dice"><div class="die"></div><div class="die"></div></div>
+            <div class="turn-banner" id="turn-banner"></div>
+          </div>
+
+          <div class="zone dontpass" data-bet="dontpass"><span class="zlabel">DON'T PASS BAR</span><span class="bar12">⚅⚅</span><div class="chips-here" data-zone="dontpass"></div></div>
+          <div class="zone odds" data-bet="odds"><span class="zlabel sm">ODDS</span><span class="paysml">true odds · pullable</span><div class="chips-here" data-zone="odds"></div></div>
+          <div class="zone passline" data-bet="passline"><span class="zlabel">P A S S&nbsp;&nbsp;L I N E</span><div class="chips-here" data-zone="passline"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Player strip -->
+    <section class="you-strip" id="you-panel">
+      <div class="you-info">
+        <span class="pname">You</span>
+        <span class="status-badge" id="you-status"></span>
+        <span class="nerve">NERVE <b id="nerve-pips"></b></span>
+        <div class="style-toggle" id="style-toggle"><button class="styb" data-style="pass" id="style-pass">Pass</button><button class="styb" data-style="dont" id="style-dont">Don't</button></div>
+        <span class="threat-meters" id="threat-meters">
+          <span class="threat anger" id="threat-anger"><span class="threat-lbl kw" data-kw="anger">ANGER</span><span class="threat-bar"><i class="threat-fill"></i></span><b class="threat-val">−0</b></span>
+          <span class="threat bleed" id="threat-bleed"><span class="threat-lbl kw" data-kw="bleed">BLEED</span><span class="threat-bar"><i class="threat-fill"></i></span><b class="threat-val">−0</b></span>
+        </span>
+        <span class="duel-coins" id="duel-coins"></span>
+        <span class="bet-hint serif-i" id="bet-hint">Click the felt to bet · 5 HP a tap</span>
+      </div>
+      <div class="hpbar big" id="you-hpbar"><div class="hp-trail" id="you-trail"></div><div class="hp-fill" id="you-fill"></div><span class="hp-text" id="you-hptext"></span></div>
+      <div class="hand" id="hand"></div>
+      <div class="bet-tools" id="bet-tools">
+        <span class="bt-group" id="bet-steps" title="Chips per tap on the felt">
+          <button class="bt-btn step on" data-step="5">5</button>
+          <button class="bt-btn step" data-step="10">10</button>
+          <button class="bt-btn step" data-step="25">25</button>
+        </span>
+        <button class="bt-btn" id="max-odds-btn" title="Fill your Odds to the maximum">Max Odds</button>
+        <button class="bt-btn" id="undo-bet-btn" title="Take back your last chip (before you roll)">↶ Undo</button>
+      </div>
+      <div class="action-row" id="controls">
+        <div class="pull-row" id="pull-row"></div>
+        <button class="btn-roll" id="roll-btn" data-act="roll">R O L L</button>
+      </div>
+      <div class="log" id="log"></div>
+      <div class="point-chooser hidden" id="point-chooser"><span class="chooser-label">You won the roll-off — set the point:</span><div class="point-opts" id="point-opts"></div></div>
+      <div class="rollwin hidden" id="rollwin"><span class="rollwin-label">Dice are down — rig them, or resolve.</span><button class="btn btn-primary" id="resolve-btn">Resolve roll</button></div>
+    </section>
+  </main>
+
+  <!-- ===== Reward ===== -->
+  <main id="reward-screen" class="screen hidden">
+    <h2 class="screen-title ornament" id="reward-title">Victory</h2>
+    <p class="screen-sub serif-i" id="reward-sub"></p>
+    <div class="relic-choices" id="reward-relics"></div>
+    <div class="card-choices" id="reward-cards"></div>
+    <button class="btn btn-mini" id="skip-reward">Skip the card</button>
+  </main>
+
+  <!-- ===== Event ===== -->
+  <main id="event-screen" class="screen hidden">
+    <div class="event-card ornate">
+      <h2 class="screen-title" id="event-title"></h2>
+      <p class="event-text serif-i" id="event-text"></p>
+      <div class="event-choices" id="event-choices"></div>
+      <p class="event-result serif-i hidden" id="event-result"></p>
+      <button class="btn btn-primary hidden" id="event-continue">Move on</button>
+    </div>
+  </main>
+
+  <!-- ===== Act transition ===== -->
+  <main id="act-screen" class="screen hidden">
+    <h2 class="screen-title ornament" id="act-title"></h2>
+    <p class="screen-sub serif-i" id="act-sub"></p>
+    <p class="screen-sub" id="act-heal"></p>
+    <h3 class="choice-head">The floor pays tribute — choose a relic:</h3>
+    <div class="relic-choices" id="act-relics"></div>
+  </main>
+
+  <!-- ===== Shop ===== -->
+  <main id="shop-screen" class="screen hidden">
+    <h2 class="screen-title ornament">The Pit Boss's Window</h2>
+    <p class="screen-sub serif-i">Spend coins. HP stays at the table.</p>
+    <div class="shop-section"><h3>Cards</h3><div class="card-choices" id="shop-cards"></div></div>
+    <div class="shop-section"><h3>Relics</h3><div class="relic-choices" id="shop-relics"></div></div>
+    <div class="shop-section"><h3>Services & Vices</h3>
+      <div class="shop-services">
+        <button class="btn btn-mini" id="shop-remove">Remove a card (<span id="removal-cost">25</span>¢)</button>
+        <button class="btn btn-mini" id="shop-facedown">Face-down card (<span id="facedown-cost">12</span>¢)</button>
+        <button class="btn btn-mini" id="shop-lever">Pull the lever (<span id="lever-cost">35</span>¢)</button>
+      </div>
+      <p class="setting-note" id="shop-gamble-note">The face-down card is what it is. The lever pays out a relic — usually.</p>
+    </div>
+    <button class="btn btn-primary" id="leave-shop">Leave</button>
+  </main>
+
+  <!-- ===== Rest ===== -->
+  <main id="rest-screen" class="screen hidden">
+    <h2 class="screen-title ornament">A Fire in the Dark</h2>
+    <p class="screen-sub serif-i">The only true respite on the floor. Choose one.</p>
+    <div class="rest-opts">
+      <button class="btn rest-btn" id="rest-mend"><b>Mend</b><span>Restore 30% of max HP</span></button>
+      <button class="btn rest-btn" id="rest-sharpen"><b>Sharpen</b><span>Upgrade a card permanently</span></button>
+      <button class="btn rest-btn" id="rest-cleanse"><b>Cleanse</b><span>Remove one curse</span></button>
+    </div>
+    <button class="btn btn-primary hidden" id="leave-rest">Move on</button>
+  </main>
+
+  <!-- ===== Deck viewer / picker ===== -->
+  <div id="deck-modal" class="overlay hidden"><div class="modal-card ornate"><h3 class="ornate-title" id="deck-title">Your deck</h3><div class="deck-list" id="deck-list"></div><button class="btn btn-primary" id="close-deck">Close</button></div></div>
+
+  <!-- ===== Card choice modal ===== -->
+  <div id="choice-modal" class="overlay hidden"><div class="modal-card ornate"><h3 class="ornate-title" id="choice-title"></h3><div id="choice-body"></div><button class="btn btn-mini" id="choice-cancel">Cancel</button></div></div>
+
+  <!-- ===== End screen ===== -->
+  <div id="end-screen" class="overlay end-scene hidden">
+    <div class="scene-frame"></div>
+    <div class="end-card">
+      <div class="crest small"><span class="crest-rays"></span><span class="crest-spade">♠</span></div>
+      <div class="end-kicker" id="end-kicker">YOU BEAT</div>
+      <h1 class="logo end-logo" id="end-title">AweCrap</h1>
+      <div class="logo-banner end-banner"><i>♦</i> <span id="end-sub">THE HOUSE BOWS. FOR NOW.</span> <i>♦</i></div>
+
+      <div class="end-body">
+        <div class="score-panel">
+          <div class="score-label">FINAL SCORE</div>
+          <div class="score-num" id="end-score">0</div>
+          <div class="score-div"></div>
+          <div class="score-label">SEED</div>
+          <div class="end-seed" id="end-seed">—</div>
+        </div>
+        <div class="stat-rows" id="end-stats"></div>
+      </div>
+      <div class="end-log hidden" id="end-log"><div class="end-log-head">HOW IT ENDED</div><div class="end-log-lines" id="end-log-lines"></div></div>
+
+      <div class="end-actions">
+        <button class="end-btn descend hidden" id="btn-descend"><b>⬇ DESCEND DEEPER</b><span>endless — chase the score</span></button>
+        <button class="end-btn primary" id="btn-again-seed"><b>PLAY AGAIN</b><span>same seed</span></button>
+        <button class="end-btn" id="btn-new-run"><b>NEW RUN</b><span>new seed</span></button>
+        <button class="end-btn" id="btn-menu"><b>MAIN MENU</b><span>leave purgatory</span></button>
+        <button class="end-btn" id="btn-copy-summary"><b>📋 COPY SUMMARY</b><span id="copy-summary-sub">seed · score · soul</span></button>
+      </div>
+      <div class="end-quote serif-i" id="end-quote">“You played the game. You broke the rules. But purgatory never closes.”</div>
+    </div>
+  </div>
+
+  <div id="banner" class="banner hidden"><div class="banner-inner"><div class="banner-main" id="banner-main"></div><div class="banner-sub" id="banner-sub"></div></div></div>
+  <div id="floaters"></div>
+  <div id="hint-host"></div>
+  <div id="kw-tip" class="kw-tip hidden"></div>
+
+  <!-- Crash guard: shown instead of a frozen board if something throws. -->
+  <div id="crash-screen" class="overlay hidden">
+    <div class="crash-card ornate">
+      <div class="crash-ico">🃏</div>
+      <h2 class="ornate-title">The table folded</h2>
+      <p class="crash-sub serif-i">Something went wrong and the dealer swept the board. Your run can’t continue — but here’s the seed, so you can run it back.</p>
+      <div class="crash-seed" id="crash-seed">—</div>
+      <p class="crash-err" id="crash-err"></p>
+      <div class="crash-actions">
+        <button class="btn btn-primary" id="crash-copy">📋 Copy seed</button>
+        <button class="btn" id="crash-menu">Back to menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js?v=gfx47"></script>
+  <script src="js/profile.js?v=gfx47"></script>
+  <script src="js/audio.js?v=gfx47"></script>
+  <script src="js/rng.js?v=gfx47"></script>
+  <script src="js/craps.js?v=gfx47"></script>
+  <script src="js/cards.js?v=gfx47"></script>
+  <script src="js/cards_ext.js?v=gfx47"></script>
+  <script src="js/duel.js?v=gfx47"></script>
+  <script src="js/ai.js?v=gfx47"></script>
+  <script src="js/run.js?v=gfx47"></script>
+  <script src="js/ui.js?v=gfx47"></script>
+  <script src="js/tutorial-data.js?v=gfx47"></script>
+  <script src="js/tutorial.js?v=gfx47"></script>
+  <script src="js/freeplay.js?v=gfx47"></script>
+  <script src="js/updates.js?v=gfx47"></script>
+  <script src="js/playtutorial.js?v=gfx47"></script>
+  <script src="js/main.js?v=gfx47"></script>
+</body>
+</html>

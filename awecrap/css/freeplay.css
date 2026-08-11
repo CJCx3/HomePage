@@ -1,0 +1,77 @@
+/* ============================================================
+   AWECRAP — freeplay.css
+   The standalone "Practice Craps" table. Reuses the real board's
+   felt (.craps-rail/.craps-table/.felt-grid/.zone… from styles.css)
+   so it looks exactly like a duel, minus the opponent. Only the
+   shell, header, controls and log are styled here.
+   ============================================================ */
+
+.fp { z-index: 70; padding: 0; }
+.fp-frame { position: absolute; inset: 12px; pointer-events: none; z-index: 1;
+  border: 1px solid rgba(185, 141, 74, 0.5); border-radius: 8px;
+  box-shadow: inset 0 0 0 3px rgba(12, 5, 6, 0.9), inset 0 0 0 4px rgba(185, 141, 74, 0.28); }
+.fp-shell { position: relative; z-index: 2; width: min(1240px, 97vw); height: min(96vh, 940px);
+  display: flex; flex-direction: column; gap: 10px; padding: 16px 18px;
+  background: radial-gradient(120% 50% at 50% 0%, rgba(122, 26, 31, 0.16), transparent 60%), linear-gradient(180deg, #1d0f12, #100709);
+  border: 1px solid rgba(185, 141, 74, 0.5); border-radius: 12px;
+  box-shadow: 0 40px 90px var(--shadow), inset 0 0 0 3px rgba(12, 5, 6, 0.9), inset 0 0 0 4px rgba(185, 141, 74, 0.24);
+  overflow: hidden; }
+
+/* header */
+.fp-top { display: flex; align-items: center; gap: 14px; }
+.fp-title { font-family: var(--serif); font-size: 17px; letter-spacing: 1px; color: var(--cream); }
+.fp-title b { color: var(--gold-bright); letter-spacing: 2px; }
+.fp-sub { font-family: var(--body); font-style: italic; font-size: 13px; color: var(--ink-dim); letter-spacing: 0; }
+.fp-x { margin-left: auto; font-family: var(--serif); letter-spacing: 1.5px; font-size: 12px; color: var(--cream); cursor: pointer;
+  background: linear-gradient(180deg, rgba(30, 14, 16, 0.9), rgba(14, 6, 8, 0.95)); border: 1px solid rgba(185, 141, 74, 0.5); border-radius: 6px; padding: 8px 14px; }
+.fp-x:hover { border-color: var(--gold-bright); box-shadow: 0 6px 18px rgba(216, 57, 47, 0.25); }
+
+/* the felt fills the middle — reuse the gameplay board's rail/table */
+.fp-rail { flex: 1; min-height: 0; display: flex; margin: 0; }
+.fp-table { flex: 1; min-height: 0; }
+.fp-table .risk-label { font-family: var(--serif); font-size: 10px; letter-spacing: 2px; color: var(--cream-dim); }
+.fp-net { font-family: var(--serif); font-size: 12px; } .fp-net.up { color: var(--heal-bright); } .fp-net.down { color: #ff9d92; }
+.fp-pointpill { transition: color .2s, border-color .2s, box-shadow .2s; }
+.fp-pointpill.on { color: var(--gold-bright); border-color: rgba(232, 201, 135, 0.7); box-shadow: 0 0 16px rgba(232, 201, 135, 0.35); }
+
+/* come-out "off" + illegal-bet dimming (kept subtle so it still reads like the board) */
+.fp .zone.fp-off { opacity: 0.72; }
+.fp .zone.fp-locked { opacity: 0.5; }
+
+/* dice in the centre stage sit a touch larger */
+.fp .tz-stage .die { width: 50px; height: 50px; }
+
+/* ---- bottom controls row ---- */
+.fp-controls { display: flex; align-items: center; gap: 16px; padding: 4px 2px; }
+.fp-chipsel { display: flex; gap: 8px; }
+.fp-chipbtn { width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-family: var(--serif); font-weight: 700; font-size: 14px; color: var(--cream);
+  background: radial-gradient(circle at 35% 30%, #3a1c20, #180a0c); border: 2px dashed rgba(185, 141, 74, 0.55); transition: transform .1s, box-shadow .15s; }
+.fp-chipbtn:hover { transform: translateY(-2px); }
+.fp-chipbtn.on { border-color: var(--gold-bright); background: radial-gradient(circle at 35% 30%, #8a2026, #440a0d); box-shadow: 0 0 16px rgba(232, 201, 135, 0.5); color: #fff; }
+.fp-ctr-mid { flex: 1; display: flex; flex-direction: column; gap: 5px; align-items: center; }
+.fp-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.fp-hint { font-family: var(--body); font-style: italic; font-size: 12.5px; color: var(--ink-dim); text-align: center; }
+.fp-roll { min-width: 200px; padding: 14px 30px; }
+
+/* ---- log + stats ---- */
+.fp-logrow { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: stretch; height: 84px; }
+.fp-log { overflow-y: auto; background: rgba(9, 4, 6, 0.72); border: 1px solid rgba(185, 141, 74, 0.3); border-radius: 8px; padding: 8px 13px;
+  scrollbar-width: thin; scrollbar-color: #3a2026 transparent; }
+.fpl { font-family: var(--body); font-size: 13.5px; line-height: 1.4; color: var(--ink-dim); padding: 1px 0; }
+.fpl.win { color: var(--heal-bright); } .fpl.lose { color: #ff9d92; } .fpl.point { color: var(--gold-bright); }
+.fpl.warn { color: var(--ember); } .fpl.roll { color: var(--cream); font-weight: 600; } .fpl.good { color: var(--heal); }
+.fp-stats { display: grid; grid-template-columns: repeat(2, auto); gap: 3px 16px; align-content: center; padding: 8px 16px; border-radius: 8px;
+  background: rgba(16, 8, 10, 0.5); border: 1px solid rgba(185, 141, 74, 0.28); font-family: var(--serif); font-size: 10px; letter-spacing: 1px; color: var(--cream-dim); white-space: nowrap; }
+.fp-stats b { color: var(--gold-bright); font-size: 13px; margin-left: 5px; letter-spacing: 0; }
+
+/* reduced graphics */
+body.gfx-0 .fp-pointpill.on { box-shadow: none; }
+
+/* responsive: keep the felt readable, stack the log under a shorter controls row */
+@media (max-width: 900px) {
+  .fp-shell { padding: 12px; }
+  .fp-controls { flex-wrap: wrap; }
+  .fp-roll { min-width: 0; flex: 1; }
+  .fp-logrow { grid-template-columns: 1fr; height: auto; }
+  .fp-stats { grid-template-columns: repeat(4, auto); justify-content: center; }
+}

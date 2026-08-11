@@ -17,3 +17,8 @@ _diag.html
 # then un-ignore just that folder below and flip its cabinet to data-live in index.html.
 Projects/
 # !Projects/AweCrap/
+
+# never commit real secrets
+.env
+**/.env
+!**/.env.example

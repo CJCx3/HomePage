@@ -1,0 +1,16 @@
+{
+  "name": "The Counter — fridge list to shopping list",
+  "short_name": "The Counter",
+  "description": "Snap the list on your fridge and shop by tapping tickets off a deli-counter board.",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efe0c1",
+  "theme_color": "#e7d8b5",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

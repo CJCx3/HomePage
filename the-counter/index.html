@@ -1,0 +1,119 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#e7d8b5" />
+<title>The Counter — fridge list to shopping list</title>
+
+<!-- Progressive Web App -->
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="The Counter" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
+
+<link rel="preload" href="fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/libre-franklin-700.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="styles.css" />
+
+<!--
+  ════════════════════════════ DIRECTION CONTRACT ════════════════════════════
+  THESIS: A shopping trip is a queue you work down, so the list is a deli
+    counter's ticket rail — not a notepad skin and not a plain checkbox list.
+    It refuses the generic minimal to-do and the paper-lined-page cliché.
+  OWN-WORLD: Butcher-paper cream ground, warm ink near-black, one signal-red for
+    NOW SERVING, a green rubber-stamp GOT IT. Items are perforated deli tickets
+    with a stamped tabular number. Bebas Neue signage caps + Libre Franklin
+    (Franklin-Gothic grocery vernacular). No gloss, no glass — printed paper.
+  STORY: Snap the fridge chart → the app reads it and splits chores from
+    groceries → you get a rail of tickets → in the aisle you tap each ticket,
+    it stamps GOT IT and flips down to the served spike, the count ticking down.
+  FIRST VIEWPORT: The COUNTER sign up top with its lit lamp and a to-go tally;
+    below it the ticket rail with a red NOW-SERVING flag on the next item; a
+    fat "Scan the fridge" action pinned to the bottom safe-area.
+  FORM: Deli-counter "Now Serving" ticket board — grounded direction #6, seed
+    key 555960e2 (concept-seed, mode operate).
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  ═════════════════════════════════════════════════════════════════════════════
+-->
+
+<div id="app" class="app" data-view="list">
+
+  <!-- ─────────────────────────  SHOPPING LIST (home)  ───────────────────────── -->
+  <main id="view-list" class="view view--list" aria-label="Shopping list">
+    <header class="board-head">
+      <div class="sign" aria-hidden="true">
+        <span class="sign__lamp"></span>
+        <span class="sign__word">The&nbsp;Counter</span>
+      </div>
+      <p class="board-sub">Fridge chart → tap-to-shop</p>
+      <div class="tally" id="tally" hidden>
+        <span class="tally__num" id="tallyNum">0</span>
+        <span class="tally__label" id="tallyLabel">to&nbsp;go</span>
+      </div>
+    </header>
+
+    <section class="rail" id="rail" aria-live="polite">
+      <!-- tickets injected here -->
+    </section>
+
+    <!-- Empty state -->
+    <section class="empty" id="emptyState">
+      <div class="empty__ghosts" aria-hidden="true">
+        <span class="ghost"></span>
+        <span class="ghost"></span>
+        <span class="ghost"></span>
+      </div>
+      <h2 class="empty__title">No tickets on the rail</h2>
+      <p class="empty__body">Snap a photo of the list on your fridge and it becomes a stack of tickets you tap off as you shop.</p>
+    </section>
+
+    <!-- Served drawer -->
+    <section class="served" id="served" hidden>
+      <button class="served__toggle" id="servedToggle" aria-expanded="false">
+        <span class="served__spikeicon" aria-hidden="true"></span>
+        <span id="servedCount">0</span> in the cart
+        <svg class="served__chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="served__list" id="servedList" hidden></div>
+    </section>
+
+    <nav class="actionbar">
+      <button class="btn btn--scan" id="scanBtn">
+        <svg class="btn__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5V7a2 2 0 0 1 2-2h1.2a1 1 0 0 0 .82-.43l.63-.9A1 1 0 0 1 9.5 3.2h5a1 1 0 0 1 .82.43l.63.9a1 1 0 0 0 .82.43H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+        Scan the fridge
+      </button>
+      <button class="btn btn--ghost" id="addBtn" aria-label="Add an item by hand">
+        <svg class="btn__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </main>
+
+  <!-- ─────────────────────────────  CAPTURE  ───────────────────────────────── -->
+  <section id="view-capture" class="view view--capture" aria-label="Take a photo" hidden></section>
+
+  <!-- ────────────────────────────  DIVIDER  ────────────────────────────────── -->
+  <section id="view-divider" class="view view--divider" aria-label="Split chores from shopping" hidden></section>
+
+  <!-- ────────────────────────────  REVIEW  ─────────────────────────────────── -->
+  <section id="view-review" class="view view--review" aria-label="Review the list" hidden></section>
+
+</div>
+
+<!-- add-by-hand sheet -->
+<div class="sheet" id="addSheet" hidden>
+  <form class="sheet__card" id="addForm">
+    <h2 class="sheet__title">Write a ticket</h2>
+    <input class="sheet__input" id="addInput" type="text" inputmode="text" autocomplete="off" placeholder="e.g. Ripe avocados" aria-label="Item to add" />
+    <div class="sheet__row">
+      <button type="button" class="btn btn--ghost btn--wide" id="addCancel">Cancel</button>
+      <button type="submit" class="btn btn--scan btn--wide">Add ticket</button>
+    </div>
+  </form>
+</div>
+
+<script src="lib/ocr.js" defer></script>
+<script src="app.js" defer></script>
+<script src="scan.js" defer></script>

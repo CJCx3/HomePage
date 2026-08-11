@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MTTD — install · Made by Connor</title>
+<meta name="description" content="MTTD — a desktop music player where the machine is the interface. Download for Windows, install instructions, and what it's for." />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{ --a:#ffb02e; --bg:#0a0710; --bg2:#0f0a18; --panel:#160e24; --edge:#2a1f3d;
+         --ink:#f6f1ff; --dim:#cdbfe4; --mute:#9d8cbb;
+         --display:"Bungee",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:
+        radial-gradient(120% 70% at 50% -10%, #1b1230 0%, var(--bg2) 45%, var(--bg) 80%);
+        color:var(--ink); font-family:var(--sans); line-height:1.6; min-height:100vh; }
+  .wrap{ width:min(760px,92vw); margin-inline:auto; padding:28px 0 80px; }
+  a{ color:var(--a); }
+  .back{ display:inline-flex; align-items:center; gap:.5ch; color:var(--mute); text-decoration:none;
+         font-weight:700; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; }
+  .back:hover{ color:var(--ink); }
+  .hero{ margin-top:26px; }
+  h1{ font-family:var(--display); font-size:clamp(2.4rem,8vw,4rem); margin:.1em 0 0;
+      color:var(--ink); text-shadow:0 0 24px color-mix(in oklab,var(--a) 55%,transparent); }
+  .lede{ font-size:1.2rem; color:var(--dim); max-width:52ch; margin:.6em 0 0; }
+  .badges{ display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; }
+  .badge{ font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+          color:color-mix(in oklab,var(--a) 30%,var(--ink)); padding:.4em .7em; border-radius:8px;
+          background:color-mix(in oklab,var(--a) 12%,transparent); border:1px solid color-mix(in oklab,var(--a) 30%,transparent); }
+  .dl{ display:inline-flex; align-items:center; gap:.6ch; margin:26px 0 4px;
+       font-family:var(--display); font-size:1rem; color:#160c02; text-decoration:none;
+       background:color-mix(in oklab,var(--a) 84%,#fff); padding:.85em 1.3em; border-radius:12px;
+       box-shadow:0 6px 0 color-mix(in oklab,var(--a) 55%,#000), 0 14px 30px -10px color-mix(in oklab,var(--a) 70%,transparent);
+       transition:transform .12s ease, box-shadow .12s ease; }
+  .dl:hover{ transform:translateY(2px); box-shadow:0 4px 0 color-mix(in oklab,var(--a) 55%,#000), 0 10px 22px -10px color-mix(in oklab,var(--a) 70%,transparent); }
+  .dl small{ font-family:var(--sans); font-weight:700; opacity:.75; }
+  .note{ color:var(--mute); font-size:.85rem; margin:.3em 0 0; }
+  section{ margin-top:44px; }
+  h2{ font-family:var(--display); font-size:1.15rem; color:var(--a); margin:0 0 14px;
+      letter-spacing:.02em; }
+  ol,ul{ padding-left:1.25em; margin:0; }
+  li{ margin:.5em 0; color:var(--dim); }
+  li b, li strong{ color:var(--ink); }
+  code{ font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-size:.86em;
+        background:#0c0814; border:1px solid var(--edge); border-radius:6px; padding:.12em .45em; color:#e9dfff; }
+  pre{ background:#0c0814; border:1px solid var(--edge); border-radius:10px; padding:14px 16px;
+       overflow-x:auto; margin:.6em 0; }
+  pre code{ background:none; border:0; padding:0; color:#d8ccf5; }
+  .card{ background:var(--panel); border:1px solid var(--edge); border-radius:14px; padding:18px 20px; }
+  .devs{ list-style:none; padding:0; display:grid; gap:10px; }
+  .devs li{ padding-left:0; }
+  .devs b{ color:var(--a); }
+  .callout{ border-left:3px solid var(--a); padding:2px 0 2px 14px; color:var(--dim); }
+  footer{ margin-top:60px; padding-top:22px; border-top:1px solid var(--edge); color:var(--mute); font-size:.85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">&larr; back to the arcade</a>
+
+  <div class="hero">
+    <h1>MTTD</h1>
+    <p class="lede">A desktop music player where <em>the machine is the interface</em>. Instead of generic buttons, you control the Spotify you&rsquo;re already playing through five fully-realized, era-authentic devices.</p>
+    <div class="badges">
+      <span class="badge">Windows</span>
+      <span class="badge">Desktop app · Electron</span>
+      <span class="badge">Needs Spotify Premium</span>
+    </div>
+    <div>
+      <a class="dl" href="MTTD-Setup-1.0.0.exe" download>Download for Windows <small>· 79 MB</small></a>
+      <p class="note">MTTD-Setup-1.0.0.exe · Windows 10/11 · installs in seconds.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>Install it</h2>
+    <ol>
+      <li>Download the installer above.</li>
+      <li>Open <code>MTTD-Setup-1.0.0.exe</code>. It isn&rsquo;t code-signed yet, so Windows SmartScreen may say &ldquo;Windows protected your PC&rdquo; &mdash; click <b>More info &rarr; Run anyway</b>.</li>
+      <li>It installs and opens to the <b>collection room</b>, where you pick a machine.</li>
+      <li>Connect Spotify: MTTD opens Spotify&rsquo;s own login in your browser (PKCE &mdash; it never sees your password). A <b>Spotify Premium</b> account is required, because the Web API only allows playback control on Premium.</li>
+      <li>Start Spotify playing on any device, pick one of the five machines, and drive it with its physical controls.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The five machines</h2>
+    <div class="card">
+      <ul class="devs">
+        <li><b>Vinyl Player</b> — browse a record crate; click the tonearm to play, drag the record to cue/scrub, 33/45 switch, VU meters.</li>
+        <li><b>Cassette Player</b> — a pile of J-card tapes; molded REW/PLAY/F.FWD/STOP keys, spinning reels, tape counter, A/B rocker.</li>
+        <li><b>Walkman</b> — a CD cabinet with pull-out drawers; the lid opens, the disc drops and spins, HOLD switch, volume roller.</li>
+        <li><b>Boombox</b> — flip a side rack like a jukebox; VOLUME/BASS knobs, dual speakers that pulse, a live graphic EQ, neon.</li>
+        <li><b>iPod</b> — the classic scrolling menu; the click wheel is everything — rotate to scroll/scrub, center to select.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why it exists</h2>
+    <p class="callout">Streaming flattened every album into the same grid of buttons. MTTD gives the music back a body: no floating HUD, no emoji &mdash; every control is a physical part of a machine you&rsquo;d actually have owned, from the 1950s crate to the 2000s click wheel. It&rsquo;s a remote for the Spotify you already pay for, dressed as the gear that made listening feel like an occasion.</p>
+  </section>
+
+  <footer>MTTD · part of <a href="../">Made by Connor</a>. Built with Electron; controls Spotify via the Web API.</footer>
+</div>
+</body>
+</html>

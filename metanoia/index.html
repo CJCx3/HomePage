@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Metanoia</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+  <!-- The rendered world. Color grading is applied to this canvas. -->
+  <canvas id="game"></canvas>
+
+  <!-- Subtle film/vignette layer so flat geometry reads as cinematic. -->
+  <div id="grain"></div>
+  <div id="vignette"></div>
+
+  <!-- A quiet prompt naming the action you can take. -->
+  <div id="prompt"></div>
+
+  <!-- Internal monologue / subtitles. Fragmented, understated. -->
+  <div id="monologue"></div>
+
+  <!-- Conversations with other characters. -->
+  <div id="dialogue">
+    <div class="dlg-inner">
+      <div id="dlgName"></div>
+      <div id="dlgText"></div>
+      <div id="dlgHint">space ▾</div>
+    </div>
+  </div>
+
+  <!-- Minigame heads-up text (instructions / score). -->
+  <div id="mgTop"></div>
+  <div id="mgBottom"></div>
+
+  <!-- Chapter cards and quiet captions. -->
+  <div id="caption"></div>
+
+  <!-- The black overlay that performs blinks and covers scene swaps. -->
+  <div id="blink"></div>
+
+  <!-- The reading surface: handwritten letter that bleeds into a world. -->
+  <div id="reader">
+    <div id="paper">
+      <div id="letterText"></div>
+      <div id="readHint">click to keep reading</div>
+    </div>
+    <div id="ink"></div>
+  </div>
+
+  <!-- The corkboard: reread letters you've received. -->
+  <div id="board" class="hidden">
+    <div class="board-inner">
+      <h2>letters on the board</h2>
+      <div id="boardList"></div>
+      <button class="ghost" id="boardClose">close</button>
+    </div>
+  </div>
+
+  <!-- Scrolling credits. -->
+  <div id="credits" class="hidden"><div id="creditsRoll"></div></div>
+
+  <!-- Title / menu. -->
+  <div id="title">
+    <div class="title-inner">
+      <h1>METANOIA</h1>
+      <p class="tag">a quiet game about noticing</p>
+      <div class="menu">
+        <button id="beginBtn">Begin</button>
+        <button class="ghost" id="settingsBtn">Settings</button>
+        <button class="ghost" id="quitBtn">Quit</button>
+      </div>
+      <div class="controls">move <b>W A S D</b> &nbsp;·&nbsp; interact <b>E</b> / <b>space</b> &nbsp;·&nbsp; pause <b>Esc</b></div>
+      <div class="headphones">story &amp; game design by Connor Corkum &nbsp;·&nbsp; headphones recommended</div>
+    </div>
+  </div>
+
+  <!-- Settings panel. -->
+  <div id="settings" class="hidden">
+    <div class="settings-inner">
+      <h2>settings</h2>
+      <label>Master volume <input type="range" id="setMaster" min="0" max="100" /></label>
+      <label>Music <input type="range" id="setMusic" min="0" max="100" /></label>
+      <label>Sound effects <input type="range" id="setSfx" min="0" max="100" /></label>
+      <label>Text speed <input type="range" id="setText" min="50" max="200" /></label>
+      <label class="check"><input type="checkbox" id="setGrain" /> Film grain</label>
+      <label class="check"><input type="checkbox" id="setVignette" /> Vignette</label>
+      <button id="settingsClose">done</button>
+    </div>
+  </div>
+
+  <!-- Pause overlay. -->
+  <div id="pause" class="hidden">
+    <div class="pause-inner">
+      <p>paused</p>
+      <button id="resumeBtn">resume</button>
+      <button class="ghost" id="pauseSettingsBtn">settings</button>
+      <button class="ghost" id="pauseQuitBtn">quit to menu</button>
+    </div>
+  </div>
+
+  <!-- Objectives tab (toggle with Tab). -->
+  <div id="objectives" class="hidden">
+    <div class="obj-head"><span id="objHeading">Objectives</span><span class="obj-key">Tab</span></div>
+    <ul id="objList"></ul>
+  </div>
+
+  <!-- Low corner hint, fades after a while. -->
+  <div id="hint">W A S D to move</div>
+</div>
+
+<script src="src/engine.js"></script>
+<script src="src/content.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
