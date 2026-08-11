@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Made by Connor — the arcade</title>
+  <meta name="description" content="An arcade of the things Connor Corkum has built. Step up to a cabinet and press play." />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0a0710" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Made by Connor" />
+  <meta property="og:description" content="An arcade of the things I've built. Step up and press play." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!--
+  DIRECTION CONTRACT — "MADE BY CONNOR" arcade hub
+  THESIS: The hub is an arcade hall, not a portfolio grid. Each project is a lit
+    cabinet you walk up to and press PLAY. Refuses the uniform icon+heading+text card wall.
+  OWN-WORLD: Deep purple-black hall; six distinct neon accents; Bungee marquee lettering;
+    coin-gold chrome; CRT scanlines + a perspective floor grid; authored pixel-emblem screens;
+    physical controls (PLAY buttons, status LEDs). Full neon always; only the LED + button
+    copy signal whether a cabinet is plugged in yet.
+  STORY: Visitor reads the "MADE BY CONNOR" marquee -> understands it's an arcade of built
+    things -> scans glowing cabinets (each proving what it is) -> presses PLAY to launch one.
+  FIRST VIEWPORT: Full-bleed dark hall; centered neon marquee + subtitle + live cabinet count;
+    the AweCrap flagship cabinet begins glowing immediately below in an asymmetric bento.
+  FORM: Arcade cabinet wall / bento of cabinets. (User-pinned world: "Bold arcade".)
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+<!-- ============================ AMBIENT LAYERS ============================ -->
+<div class="hall" aria-hidden="true">
+  <div class="hall__glow hall__glow--a"></div>
+  <div class="hall__glow hall__glow--b"></div>
+  <div class="hall__floor"></div>
+  <div class="hall__scan"></div>
+  <div class="hall__vignette"></div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============================ MARQUEE ============================ -->
+  <header class="marquee">
+    <div class="marquee__sign">
+      <span class="marquee__pre">MADE&nbsp;BY</span>
+      <h1 class="marquee__name">CONNOR</h1>
+    </div>
+    <p class="marquee__sub">An arcade of the things I&rsquo;ve built. Step up to a cabinet and press&nbsp;play.</p>
+    <div class="marquee__meta" role="list">
+      <span class="chip" role="listitem"><b>6</b>&nbsp;cabinets</span>
+      <span class="chip chip--live" role="listitem"><i class="led"></i><span data-online-count>0</span>&nbsp;online</span>
+      <span class="chip chip--coin" role="listitem"><span class="coin">◉</span>&nbsp;insert&nbsp;coin</span>
+    </div>
+  </header>
+
+  <!-- ============================ CABINET WALL ============================
+
+    HOW TO PLUG IN A PROJECT (do this per project as you add each folder to the repo):
+      1. Copy the project's site into a subfolder here, e.g.  ./metanoia/  (must contain an index.html)
+      2. On its cabinet below, set   data-live="true"
+      3. Set the cabinet's  href  to that folder, e.g.  href="metanoia/"
+      That's it — the LED turns green and the button becomes PLAY.
+
+    To add a NEW cabinet, copy any <a class="cab"> block, then:
+      - set data-accent to one of: metanoia | awecrap | mttd | counter | daytrader | homehub
+        (or add a new  .cab[data-accent="x"]{ --a: #hex; }  rule in styles.css)
+      - swap the <svg class="emblem"> art, the tag, title, tagline, stats and status label.
+  ============================================================================= -->
+  <section class="wall" aria-label="Projects">
+
+    <!-- ---- AWECRAP · flagship (2x2) ---- -->
+    <a class="cab cab--hero" data-accent="awecrap" data-live="false" href="#" aria-label="AweCrap — a roguelike deckbuilder crossed with casino craps">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="7" y="15" width="27" height="27" rx="6" fill="var(--a)"/>
+          <rect x="30" y="26" width="27" height="27" rx="6" fill="#fff"/>
+          <g fill="#fff"><circle cx="14" cy="22" r="2.6"/><circle cx="27" cy="22" r="2.6"/><circle cx="20.5" cy="28.5" r="2.6"/><circle cx="14" cy="35" r="2.6"/><circle cx="27" cy="35" r="2.6"/></g>
+          <g fill="var(--a)"><circle cx="37" cy="33" r="2.6"/><circle cx="50" cy="46" r="2.6"/></g>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Roguelike&nbsp;· Deckbuilder</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">AweCrap</h2>
+        <p class="cab__tagline">Purgatory&rsquo;s casino. You bet with your life &mdash; and you&rsquo;re bleeding the whole time.</p>
+        <ul class="cab__stats"><li>5 acts</li><li>127 cards</li><li>5 bosses</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- METANOIA · wide (2x1) ---- -->
+    <a class="cab cab--wide" data-accent="metanoia" data-live="false" href="#" aria-label="Metanoia — a quiet narrative game about noticing">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="14" y="45" width="36" height="7" rx="3.5" fill="#fff" opacity=".22"/>
+          <rect x="30" y="24" width="4" height="23" rx="2" fill="var(--a)"/>
+          <path d="M32 32C21 30 17 21 19 14c9 0 14 8 13 18Z" fill="var(--a)"/>
+          <path d="M32 36c11-2 15-10 13-17-9 0-14 8-13 17Z" fill="var(--a)" opacity=".78"/>
+          <circle cx="32" cy="20" r="4.4" fill="#fff"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Narrative&nbsp;· Canvas</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">Metanoia</h2>
+        <p class="cab__tagline">A quiet game about noticing. A grey day blooms back into colour, one letter at a time.</p>
+        <ul class="cab__stats"><li>3 letters</li><li>1 grey day</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- MTTD · square (1x1) ---- -->
+    <a class="cab" data-accent="mttd" data-live="false" href="#" aria-label="MTTD — a desktop music player where the machine is the interface">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="30" cy="34" r="20" fill="#0c0813"/>
+          <circle cx="30" cy="34" r="20" fill="none" stroke="var(--a)" stroke-width="1.5" opacity=".45"/>
+          <circle cx="30" cy="34" r="13" fill="none" stroke="var(--a)" stroke-width="1.5" opacity=".7"/>
+          <circle cx="30" cy="34" r="6.5" fill="var(--a)"/>
+          <circle cx="30" cy="34" r="1.8" fill="#0c0813"/>
+          <rect x="42" y="9" width="4" height="26" rx="2" transform="rotate(34 44 22)" fill="#fff"/>
+          <circle cx="47" cy="12" r="3.4" fill="var(--a)"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Desktop&nbsp;· Electron</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">MTTD</h2>
+        <p class="cab__tagline">Five era-authentic machines that control your Spotify. The machine <em>is</em> the interface.</p>
+        <ul class="cab__stats"><li>5 devices</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- THE COUNTER · tall (1x2) ---- -->
+    <a class="cab cab--tall" data-accent="counter" data-live="false" href="#" aria-label="The Counter — snap your fridge list and shop it offline">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="13" width="40" height="38" rx="4" fill="#fff"/>
+          <path d="M12 17a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v7H12Z" fill="var(--a)"/>
+          <rect x="18" y="30" width="28" height="3.5" rx="1.75" fill="var(--a)" opacity=".35"/>
+          <text x="32" y="48" text-anchor="middle" font-family="Bungee, sans-serif" font-size="15" fill="var(--a)">07</text>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">PWA&nbsp;· On-device&nbsp;OCR</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">The Counter</h2>
+        <p class="cab__tagline">Snap the list on your fridge &rarr; it reads it, sorts chores from shopping, and hands you a deli-ticket board to tap off as you go.</p>
+        <ul class="cab__stats"><li>Photo &rarr; list</li><li>Works offline</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- DAYTRADER · wide (2x1) ---- -->
+    <a class="cab cab--wide" data-accent="daytrader" data-live="false" href="#" aria-label="DayTrader — a small, honest day-trading bot">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <line x1="14" y1="30" x2="14" y2="50" stroke="var(--a)" stroke-width="1.6"/>
+          <rect x="10.5" y="36" width="7" height="11" rx="1.5" fill="var(--a)" opacity=".55"/>
+          <line x1="27" y1="24" x2="27" y2="44" stroke="var(--a)" stroke-width="1.6"/>
+          <rect x="23.5" y="28" width="7" height="12" rx="1.5" fill="var(--a)"/>
+          <line x1="40" y1="22" x2="40" y2="38" stroke="#fff" stroke-width="1.6"/>
+          <rect x="36.5" y="26" width="7" height="7" rx="1.5" fill="#fff"/>
+          <line x1="53" y1="12" x2="53" y2="34" stroke="var(--a)" stroke-width="1.6"/>
+          <rect x="49.5" y="16" width="7" height="14" rx="1.5" fill="var(--a)"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Trading&nbsp;bot&nbsp;· Python</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">DayTrader</h2>
+        <p class="cab__tagline">A small, honest day-trading bot. Costs always modelled, buy-and-hold always the bar, kill-switch always on.</p>
+        <ul class="cab__stats"><li>Backtest</li><li>Paper</li><li>Live</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- HOME HUB · square (1x1) ---- -->
+    <a class="cab" data-accent="homehub" data-live="false" href="#" aria-label="Corkum Home Hub — your whole day at a glance">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M14 32 32 15l18 17Z" fill="var(--a)"/>
+          <rect x="18" y="31" width="28" height="19" rx="2" fill="var(--a)"/>
+          <circle cx="32" cy="41" r="8" fill="#fff"/>
+          <line x1="32" y1="41" x2="32" y2="36" stroke="var(--a)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="32" y1="41" x2="36" y2="43" stroke="var(--a)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Dashboard&nbsp;· Web</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">Home Hub</h2>
+        <p class="cab__tagline">Time, weather, tasks and groceries on one calm screen &mdash; with a full-screen ambient TV mode.</p>
+        <ul class="cab__stats"><li>Time</li><li>Weather</li><li>Tasks</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="foot">
+    <span class="foot__mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="22" height="22"><path d="M45 21a18 18 0 1 0 0 22" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></svg>
+    </span>
+    <p class="foot__txt">Built by Connor Corkum. New cabinets get wired in one at a time &mdash; check back as the arcade fills up.</p>
+  </footer>
+
+</main>
+
+<!-- toast host -->
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script src="main.js"></script>
+</body>
+</html>

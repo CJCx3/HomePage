@@ -1,0 +1,19 @@
+# dependencies / build output (never publish these)
+node_modules/
+dist/
+build/
+release/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# scratch
+_diag.html
+
+# Staging area. Projects get wired into the arcade one at a time — copy the
+# web-ready files of a project into its own folder here (e.g. Projects/AweCrap/),
+# then un-ignore just that folder below and flip its cabinet to data-live in index.html.
+Projects/
+# !Projects/AweCrap/
