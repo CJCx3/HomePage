@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════
    CLOCK.JS — Live clock, date, greeting
-   Pinned to Eastern Time (Seven Valleys, PA)
+   Pinned to Eastern Time (your area)
    ═══════════════════════════════════════ */
 
-const HUB_TZ = 'America/New_York';   // Seven Valleys, PA
+const HUB_TZ = 'America/New_York';   // your area
 
 function clockInit() {
   clockTick();

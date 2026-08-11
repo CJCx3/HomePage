@@ -55,8 +55,8 @@ function buildCommands() {
   // ── Services ──
   const s = HUB.get('settings', {});
   cmds.push(
-    { icon:'🎬', title:'Open Jellyfin', sub:'Service', keys:'jellyfin media stream', run:()=>window.open(s.jellyfinUrl || 'http://100.86.241.110:8096','_blank') },
-    { icon:'🌐', title:'Open Router',   sub:'Service', keys:'router network admin', run:()=>window.open(s.routerUrl || 'http://192.168.68.1','_blank') },
+    { icon:'🎬', title:'Open Jellyfin', sub:'Service', keys:'jellyfin media stream', run:()=>window.open(s.jellyfinUrl || 'http://localhost:8096','_blank') },
+    { icon:'🌐', title:'Open Router',   sub:'Service', keys:'router network admin', run:()=>window.open(s.routerUrl || 'http://192.168.1.1','_blank') },
   );
   (HUB.get('customServices', []) || []).forEach(svc => svc.url && cmds.push({
     icon: svc.icon || '🔗', title: `Open ${svc.name}`, sub:'Service', keys:`${svc.name} service`,

@@ -7,12 +7,12 @@ function settingsInit() {
 
   // Populate fields
   const fields = {
-    'set-jellyfin':   s.jellyfinUrl  || 'http://100.86.241.110:8096',
-    'set-router':     s.routerUrl    || 'http://192.168.68.1',
-    'set-city':       s.weatherCity  || 'Seven Valleys',
+    'set-jellyfin':   s.jellyfinUrl  || 'http://localhost:8096',
+    'set-router':     s.routerUrl    || 'http://192.168.1.1',
+    'set-city':       s.weatherCity  || 'New York',
     'set-unit':       s.weatherUnit  || 'fahrenheit',
     'set-ambient-mins': s.ambientMins ?? 10,
-    'set-names':      (s.familyNames || ['CJC']).join(', '),
+    'set-names':      (s.familyNames || ['You']).join(', '),
   };
   Object.entries(fields).forEach(([id, val]) => {
     const el = document.getElementById(id); if (el) el.value = val;
@@ -29,10 +29,10 @@ function saveSettings() {
   const s = HUB.get('settings', {});
   s.jellyfinUrl  = document.getElementById('set-jellyfin')?.value.trim()  || s.jellyfinUrl;
   s.routerUrl    = document.getElementById('set-router')?.value.trim()    || s.routerUrl;
-  s.weatherCity  = document.getElementById('set-city')?.value.trim()     || 'Seven Valleys';
+  s.weatherCity  = document.getElementById('set-city')?.value.trim()     || 'New York';
   s.weatherUnit  = document.getElementById('set-unit')?.value            || 'fahrenheit';
   s.ambientMins  = parseInt(document.getElementById('set-ambient-mins')?.value) || 10;
-  const namesRaw = document.getElementById('set-names')?.value || 'CJC';
+  const namesRaw = document.getElementById('set-names')?.value || 'You';
   s.familyNames  = namesRaw.split(',').map(n => n.trim()).filter(Boolean);
   HUB.set('settings', s);
 

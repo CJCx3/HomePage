@@ -195,7 +195,7 @@ if (s.theme && s.theme !== 'default') document.documentElement.setAttribute('dat
   }
 })();
 
-// ─── CLOCK (Eastern Time — Seven Valleys, PA) ───
+// ─── CLOCK (Eastern Time — your area) ───
 const TZ = 'America/New_York';
 function tick() {
   const now = new Date();
@@ -216,7 +216,7 @@ setInterval(tick, 1000); tick();
 // ─── WEATHER ───
 async function loadWeather() {
   const settings = get('settings', {});
-  const city = settings.weatherCity || 'Seven Valleys';
+  const city = settings.weatherCity || 'New York';
   const unit = settings.weatherUnit || 'fahrenheit';
   try {
     const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);

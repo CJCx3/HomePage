@@ -74,7 +74,7 @@ HUB.updateStats = () => {
   // Personalized hero sub-line (uses the first family name from Settings)
   const sub = document.getElementById('hero-sub');
   if (sub) {
-    const name = ((HUB.get('settings', {}).familyNames || ['CJC'])[0] || 'there').trim() || 'there';
+    const name = ((HUB.get('settings', {}).familyNames || ['You'])[0] || 'there').trim() || 'there';
     sub.textContent = `Welcome back, ${name}. Here's your home overview.`;
   }
 
@@ -186,18 +186,18 @@ function initAll() {
   // Apply saved theme
   const s = HUB.get('settings', {});
 
-  // One-time location setup → Seven Valleys, PA (Eastern Time, °F).
+  // One-time location setup → your area (Eastern Time, °F).
   // Runs once; users can still change city/unit later in Settings.
   if (!s._locationSet) {
-    s.weatherCity = 'Seven Valleys';
+    s.weatherCity = 'New York';
     s.weatherUnit = s.weatherUnit || 'fahrenheit';
     s._locationSet = true;
     HUB.set('settings', s);
   }
 
   // Migrate Jellyfin to its current address (only replaces the old default — leaves custom values alone)
-  if (!s.jellyfinUrl || s.jellyfinUrl === 'http://192.168.68.109:8096') {
-    s.jellyfinUrl = 'http://100.86.241.110:8096';
+  if (!s.jellyfinUrl || s.jellyfinUrl === 'http://localhost:8096') {
+    s.jellyfinUrl = 'http://localhost:8096';
     HUB.set('settings', s);
   }
   if (s.theme && s.theme !== 'default') {

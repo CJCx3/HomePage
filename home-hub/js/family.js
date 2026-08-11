@@ -15,8 +15,8 @@ function postMessage() {
   const body   = (document.getElementById('msg-input')?.value || '').trim();
   const fromEl = document.getElementById('msg-from');
   const settings = HUB.get('settings', {});
-  const names    = settings.familyNames || ['CJC'];
-  const from  = fromEl?.value || names[0] || 'CJC';
+  const names    = settings.familyNames || ['You'];
+  const from  = fromEl?.value || names[0] || 'You';
   if (!body) return;
   const msgs = HUB.get('messages', []);
   msgs.unshift({ id: Date.now(), from, body, time: new Date().toISOString() });
@@ -39,7 +39,7 @@ function renderMessages() {
 
   // Update from dropdown with saved names
   const settings = HUB.get('settings', {});
-  const names = settings.familyNames || ['CJC'];
+  const names = settings.familyNames || ['You'];
   const fromEl = document.getElementById('msg-from');
   if (fromEl) {
     fromEl.innerHTML = names.map(n => `<option value="${HUB.esc(n)}">${HUB.esc(n)}</option>`).join('');

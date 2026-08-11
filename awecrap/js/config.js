@@ -530,32 +530,32 @@ SO.ACHIEVEMENTS = [
 /* ===================== Media: music, portraits, credits ===================== */
 // Track id -> file. Loops are handled by the audio manager (js/audio.js).
 SO.MUSIC = {
-  menu: 'AweCrapMusic/music_menu.mp3',
-  map: 'AweCrapMusic/music_map.mp3',
-  duel_point: 'AweCrapMusic/music_duel_point.mp3',
-  duel_attrition: 'AweCrapMusic/music_duel_attrition.mp3',
-  duel_prop: 'AweCrapMusic/music_duel_prop.mp3',
-  duel_control: 'AweCrapMusic/music_duel_control.mp3',
-  boss_floor_manager: 'AweCrapMusic/music_boss_floor_manager.mp3',
-  boss_pit_boss: 'AweCrapMusic/music_boss_pit_boss.mp3',
-  boss_countess: 'AweCrapMusic/music_boss_countess.mp3',
-  boss_auditor: 'AweCrapMusic/music_boss_auditor.mp3',
-  boss_the_house: 'AweCrapMusic/music_boss_the_house.mp3',
-  shop: 'AweCrapMusic/music_shop.mp3',
-  rest: 'AweCrapMusic/music_rest.mp3',
+  menu: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_menu.mp3',
+  map: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_map.mp3',
+  duel_point: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_duel_point.mp3',
+  duel_attrition: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_duel_attrition.mp3',
+  duel_prop: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_duel_prop.mp3',
+  duel_control: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_duel_control.mp3',
+  boss_floor_manager: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_boss_floor_manager.mp3',
+  boss_pit_boss: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_boss_pit_boss.mp3',
+  boss_countess: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_boss_countess.mp3',
+  boss_auditor: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_boss_auditor.mp3',
+  boss_the_house: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_boss_the_house.mp3',
+  shop: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_shop.mp3',
+  rest: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/music_rest.mp3',
 };
 
 // Continuous background bed — loops under the music at a fraction of the master
 // volume (see AMB_SCALE in audio.js), starts on first gesture, never swaps.
 SO.AMBIENCE = {
-  casino: 'AweCrapMusic/amb_casino.mp3',
+  casino: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/amb_casino.mp3',
 };
 
 // One-shot stingers fired at story beats (non-looping; played over the music).
 SO.SFX = {
-  victory: 'AweCrapMusic/sting_victory.mp3',
-  defeat: 'AweCrapMusic/sting_defeat.mp3',
-  boss_down: 'AweCrapMusic/sting_boss_down.mp3',
+  victory: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/sting_victory.mp3',
+  defeat: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/sting_defeat.mp3',
+  boss_down: 'https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/sting_boss_down.mp3',
 };
 
 // Boss id -> profile portrait shown on the duel board.
@@ -567,7 +567,7 @@ SO.BOSS_PORTRAITS = {
   the_house: 'AweCrapBossPics/Act5.png',
 };
 
-// Rendered on the main-menu Credits tab (see AweCrapMusic/Credits.txt).
+// Rendered on the main-menu Credits tab (see https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/Credits.txt).
 SO.CREDITS = [
   { section: 'Game', lines: [
     ['Design & direction', 'Connor Corkum'],

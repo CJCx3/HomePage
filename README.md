@@ -1,51 +1,63 @@
 # Made by Connor — the arcade
 
-A single-page hub for everything Connor Corkum has built. It's styled as a neon
-**arcade hall**: every project is a lit cabinet you walk up to and press **PLAY**.
-Cabinets start `OFFLINE` (red LED, *Insert coin*) and switch `ONLINE` (green LED,
-*Play*) the moment you plug a project into the repo — so the arcade fills up as
-projects are added one at a time.
+A single-page hub for everything Connor Corkum has built, styled as a neon
+**arcade hall**: every project is a lit cabinet you press to launch. Plain static
+site — **HTML, CSS, a little JS, no build step**.
 
-Plain static site — **HTML, CSS, a little JS, no build step**. Open `index.html`
-directly, or serve the folder.
+The whole site sits behind a **password gate** on first visit each session
+(see *Security* below), and it's published on **GitHub Pages** →
+`https://cjcx3.github.io/HomePage/`.
 
 ## The cabinets
 
-| Cabinet | What it is |
-|---|---|
-| **AweCrap** | Roguelike deckbuilder × casino craps — 5 acts, 127 cards, 5 bosses |
-| **Metanoia** | A quiet narrative game about noticing; a grey day blooms back to colour |
-| **MTTD** | Desktop music player — five era-authentic machines that control Spotify |
-| **The Counter** | Offline PWA: snap the fridge list → on-device OCR → deli-ticket shopping board |
-| **DayTrader** | A small, honest day-trading bot (backtest · paper · live) |
-| **Home Hub** | Personal dashboard — time, weather, tasks, groceries, ambient TV mode |
+| Cabinet | What it is | Button |
+|---|---|---|
+| **AweCrap** | Roguelike deckbuilder × casino craps — 5 acts, 127 cards, 5 bosses | Play → `awecrap/` |
+| **Metanoia** | A quiet narrative game about noticing | Play → `metanoia/` |
+| **The Counter** | Offline PWA: fridge photo → on-device OCR → deli-ticket board | Open → `the-counter/` |
+| **Home Hub** | Personal dashboard — time, weather, tasks, groceries | Open → `home-hub/` |
+| **MTTD** | Desktop music player (Electron) that controls Spotify | Install → `mttd/` |
+| **DayTrader** | A small, honest day-trading bot | Install → `daytrader/` |
 
-## Plugging a project in
+The two desktop/CLI projects have their own install pages (download + instructions +
+what the project is for). Their downloads are hosted as **GitHub Releases**, not in
+the repo:
 
-As each project is added to the repo, do three things to its cabinet in
-[`index.html`](index.html):
+- **MTTD installer** → release `mttd-v1.0.0` (79 MB Windows installer).
+- **AweCrap audio** → release `awecrap-audio-v1`; the web game streams its music from
+  there so the 177 MB of mp3s stay out of the repo. Without it the game runs silent.
+- **DayTrader source** → `daytrader/daytrader-source.zip` (code only, no keys).
 
-1. Copy the project's site into a subfolder here — e.g. `metanoia/` — containing an `index.html`.
-2. On that cabinet's `<a class="cab" …>` tag, set `data-live="true"`.
-3. Set its `href` to the folder, e.g. `href="metanoia/"`.
+## Security
 
-The LED turns green, the button becomes **Play**, and the "online" counter ticks up.
-(For desktop/CLI projects like MTTD and DayTrader, point `href` at a download or a
-code link instead of a local folder.)
+- **Password gate** — [`gate.js`](gate.js) is included on every page. On first visit it
+  shows a full-screen prompt; the password is stored only as a SHA-256 **hash** (no
+  plaintext in the source) and checked in-browser via `crypto.subtle` (needs HTTPS,
+  which Pages provides). Unlock is remembered for the session.
+  > This is a *soft* barrier, not real security: anyone can read a public site's source
+  > or this repo. The real protection is that **no sensitive data is published** —
+  > Home Hub's source was scrubbed of personal IPs, location, and identifiers, and
+  > DayTrader's zip carries no `.env`/keys. To make it genuinely private, host from a
+  > private repo instead.
+- Change the password by replacing the `HASH` constant in `gate.js` with the SHA-256 of
+  the new password (`printf '%s' 'NEWPASS' | sha256sum`).
 
-Adding a **new** cabinet: copy any `<a class="cab">` block, give it a `data-accent`
-(add a colour in [`styles.css`](styles.css) if it's a new one), and swap the emblem,
-title, tagline and stats.
+## Add or change a cabinet
+
+Each cabinet is an `<a class="cab" …>` block in [`index.html`](index.html) with
+`data-accent`, `data-kind` (`play` / `open` / `install`), `data-live`, and an `href`.
+Copy a block, swap the emblem SVG, title, tagline and stats; add a colour rule
+`.cab[data-accent="x"]{ --a:#hex }` in [`styles.css`](styles.css) for a new accent.
 
 ## Files
 
-- `index.html` — the page and all six cabinets
-- `styles.css` — the arcade look (colours, layout, motion)
-- `main.js` — online counter + "insert coin" toast (progressive enhancement)
-- `favicon.svg` — the coin-gold **C** mark
-- `.nojekyll` — tells GitHub Pages to serve the files as-is
+- `index.html` · `styles.css` · `main.js` — the hub (six cabinets, online counter, toast)
+- `gate.js` — the site password gate
+- `awecrap/` · `metanoia/` · `the-counter/` · `home-hub/` — the playable web builds
+- `mttd/` · `daytrader/` — install pages
+- `favicon.svg` — the coin-gold **C** mark · `.nojekyll` — serve files as-is on Pages
 
 ## Publishing on GitHub Pages
 
-Push this repo to GitHub, then in **Settings → Pages** choose **Deploy from a
-branch** → `main` / `root`. It'll be live at `https://<username>.github.io/<repo>/`.
+**Settings → Pages → Deploy from a branch → `main` / `root`.**
+Live at `https://cjcx3.github.io/HomePage/`.

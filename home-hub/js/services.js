@@ -5,8 +5,8 @@
 
 function servicesInit() {
   const settings = HUB.get('settings', {});
-  const jfUrl = settings.jellyfinUrl || 'http://100.86.241.110:8096';
-  const rtUrl = settings.routerUrl   || 'http://192.168.68.1';
+  const jfUrl = settings.jellyfinUrl || 'http://localhost:8096';
+  const rtUrl = settings.routerUrl   || 'http://192.168.1.1';
 
   // Set links
   ['jellyfin-link','jellyfin-link2'].forEach(id => {
@@ -30,8 +30,8 @@ function servicesInit() {
   // Re-check every 2 minutes (named so it never stacks on re-init)
   HUB.every('services', () => {
     const s = HUB.get('settings', {});
-    checkService(s.jellyfinUrl || 'http://100.86.241.110:8096', 'status-jellyfin');
-    checkService(s.routerUrl   || 'http://192.168.68.1',        'status-router');
+    checkService(s.jellyfinUrl || 'http://localhost:8096', 'status-jellyfin');
+    checkService(s.routerUrl   || 'http://192.168.1.1',        'status-router');
     const c = HUB.get('customServices', []);
     c.forEach((svc, i) => { if (svc.url) checkService(svc.url, `status-custom-${i}`); });
   }, 2 * 60 * 1000);

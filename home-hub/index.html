@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="../gate.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Corkum Home Hub</title>
@@ -99,8 +100,8 @@
           </div>
           <div class="svc-name">Jellyfin</div>
           <div class="svc-desc">Personal media server. Stream movies, shows & music.</div>
-          <div class="svc-url jellyfin-url-label">http://100.86.241.110:8096</div>
-          <a class="svc-link" id="jellyfin-link" href="http://100.86.241.110:8096" target="_blank">Open Jellyfin ↗</a>
+          <div class="svc-url jellyfin-url-label">http://localhost:8096</div>
+          <a class="svc-link" id="jellyfin-link" href="http://localhost:8096" target="_blank">Open Jellyfin ↗</a>
         </div>
         <div class="card service-card card-accent">
           <div class="svc-top">
@@ -109,8 +110,8 @@
           </div>
           <div class="svc-name">Router</div>
           <div class="svc-desc">Network admin panel. Manage devices & settings.</div>
-          <div class="svc-url router-url-label">http://192.168.68.1</div>
-          <a class="svc-link" id="router-link" href="http://192.168.68.1" target="_blank">Open Router ↗</a>
+          <div class="svc-url router-url-label">http://192.168.1.1</div>
+          <a class="svc-link" id="router-link" href="http://192.168.1.1" target="_blank">Open Router ↗</a>
         </div>
         <div class="card service-card card-accent">
           <div class="svc-top">
@@ -478,8 +479,8 @@
       <h2>⚡ Quick Launch</h2>
       <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">Large buttons for TV remote use.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <a id="jellyfin-link2" href="http://100.86.241.110:8096" target="_blank" class="btn btn-primary" style="justify-content:center;padding:20px;font-size:1.1rem;">🎬 Jellyfin</a>
-        <a id="router-link2"   href="http://192.168.68.1"        target="_blank" class="btn btn-secondary" style="justify-content:center;padding:20px;font-size:1.1rem;">🌐 Router</a>
+        <a id="jellyfin-link2" href="http://localhost:8096" target="_blank" class="btn btn-primary" style="justify-content:center;padding:20px;font-size:1.1rem;">🎬 Jellyfin</a>
+        <a id="router-link2"   href="http://192.168.1.1"        target="_blank" class="btn btn-secondary" style="justify-content:center;padding:20px;font-size:1.1rem;">🌐 Router</a>
         <button onclick="HUB.ambientOpen()" class="btn btn-secondary" style="justify-content:center;padding:20px;font-size:1.1rem;">📺 TV Mode</button>
         <button onclick="copyShare()" class="btn btn-secondary" style="justify-content:center;padding:20px;font-size:1.1rem;">📁 File Share</button>
       </div>
@@ -511,15 +512,15 @@
     <!-- SERVICE URLS -->
     <div class="card">
       <h2>🔗 Service URLs</h2>
-      <div class="field"><label>Jellyfin URL</label><input id="set-jellyfin" value="http://100.86.241.110:8096"></div>
-      <div class="field"><label>Router URL</label>  <input id="set-router"   value="http://192.168.68.1"></div>
+      <div class="field"><label>Jellyfin URL</label><input id="set-jellyfin" value="http://localhost:8096"></div>
+      <div class="field"><label>Router URL</label>  <input id="set-router"   value="http://192.168.1.1"></div>
       <button class="btn btn-primary" onclick="saveSettings()">💾 Save</button>
     </div>
 
     <!-- WEATHER -->
     <div class="card">
       <h2>🌤 Weather Settings</h2>
-      <div class="field"><label>City</label><input id="set-city" placeholder="Seven Valleys"></div>
+      <div class="field"><label>City</label><input id="set-city" placeholder="New York"></div>
       <div class="field">
         <label>Temperature Unit</label>
         <select id="set-unit">

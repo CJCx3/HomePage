@@ -26,7 +26,7 @@ async function weatherInit() {
 
 async function weatherFetch() {
   const settings = HUB.get('settings', {});
-  const city = settings.weatherCity || 'Seven Valleys';
+  const city = settings.weatherCity || 'New York';
   const unit = settings.weatherUnit || 'fahrenheit';
 
   try {
