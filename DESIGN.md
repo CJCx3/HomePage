@@ -1,67 +1,68 @@
-# Design — "Made by Connor" arcade hub
+# Design — "Made by Connor" comic-book collection
 
-The durable visual decisions behind the hub. Keep new cabinets inside this system.
+The durable visual decisions behind the hub. Keep new panels inside this system.
 
 ## The idea
 
-A neon **arcade hall**, not a portfolio grid. Every project is a lit **cabinet**
-you walk up to and press **PLAY**. Cabinets start `OFFLINE` (red LED, *Insert coin*)
-and switch `ONLINE` (green LED, *Play*) when a project is plugged into the repo, so
-the arcade visibly fills up over time. Full neon always — only the LED colour and the
-button copy carry the online/offline state.
+A **comic-book page**, not a portfolio grid. Every project is a hand-inked **panel**
+with a caption box, a speech bubble, and a bold action button. The reader lands on a
+sunburst **splash panel**, scans the panels, and hits the button to dive in. A project
+goes "live" by setting `data-live="true"` + an `href` on its `<a class="cab">`; the CTA
+becomes Play / Open / Install (via `data-kind`).
 
 ## Palette
 
-Deep purple-black hall; each cabinet owns one saturated neon accent.
+Cream newsprint with Ben-Day halftone; everything outlined in comic ink (near-black).
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` / `--bg-2` | `#0a0710` / `#0f0a18` | hall background |
-| `--panel` / `--panel-2` | `#140d20` / `#180f26` | cabinet body |
-| `--ink` / `--ink-dim` / `--ink-mute` | `#f6f1ff` / `#cdbfe4` / `#9d8cbb` | text (all ≥4.5:1 on panel) |
-| `--coin` | `#ffd23f` | shared chrome: marquee "MADE BY", insert-coin chip, footer mark |
+| `--paper` | `#f3e6c2` | newsprint background (+ halftone dots) |
+| `--panel` | `#fffdf6` | white panel interior |
+| `--ink` | `#17130d` | all outlines, shadows, body text |
+| `--pop-red` / `--pop-yellow` / `--pop-blue` | `#ff3b3b` / `#ffd23f` / `#2b7fff` | title, caption boxes, focus |
 
-Per-project accents (`--a`, set by `data-accent`):
-
-| Cabinet | `data-accent` | Accent |
-|---|---|---|
-| AweCrap | `awecrap` | `#ff3b5c` red |
-| Metanoia | `metanoia` | `#37e29a` green |
-| MTTD | `mttd` | `#ffb02e` amber |
-| The Counter | `counter` | `#ff5cae` magenta |
-| DayTrader | `daytrader` | `#25d0ff` cyan |
-| Home Hub | `homehub` | `#9b8cff` violet |
-
-A cabinet themes itself entirely from `--a` via `color-mix` — border, screen glow,
-tags, stats, and the physical PLAY button all derive from that one colour.
+Per-project accents (`--a`, set by `data-accent`): AweCrap `#ff3344`, Metanoia `#2ec46b`,
+MTTD `#ff9f1c`, The Counter `#ff4fa3`, DayTrader `#26b3ff`, Home Hub `#9a7bff`. A panel's
+screen tint, title fill and action button all derive from `--a`.
 
 ## Type
 
-- **Display:** Bungee (Google Fonts) — marquee, cabinet titles, buttons, toast.
-- **Body / UI:** Archivo (400–900) — taglines, tags, chips.
-- No gradient text; emphasis comes from weight, size and neon glow (`text-shadow`).
+- **Display:** Bangers (Google Fonts) — the splash title, panel titles, buttons, section
+  heads. Rendered "inked": `-webkit-text-stroke` in `--ink` + `paint-order: stroke fill` +
+  a hard offset `text-shadow`.
+- **Dialogue / body:** Comic Neue 700 — taglines, captions, copy. Italic for emphasis.
 
-## Structure
+## Ink system
 
-Asymmetric **bento** wall (`.wall`), not uniform cards:
+- **Outlines:** `--w: 3px` solid `--ink` on panels; `2px` on chips/caption boxes.
+- **Depth:** hard offset shadows (`--sh: 7px 7px 0 --ink`, `--sh-lg`, `--sh-sm`) — authentic
+  pop-art, not soft blur. Panels lift on hover (shift up-left, shadow grows) and press on
+  `:active`.
+- **Halftone:** `radial-gradient` dots — on the paper, on panel screens (colored, masked to a
+  corner), and washed over the splash sunburst.
+- **Splash:** a slowly rotating `repeating-conic-gradient` sunburst behind the title (paused
+  under reduced-motion). Emblems are re-inked with a black outline via stacked `drop-shadow`.
 
-- Desktop (4 cols): AweCrap 2×2 flagship · Metanoia 2×1 · MTTD 1×1 · The Counter 1×2 · DayTrader 2×1 · Home Hub 1×1.
-- ≤860px: 2 columns. ≤560px: single column.
+## Panel anatomy
 
-Each cabinet = a **screen** (authored pixel-style SVG emblem on a scanline CRT panel)
-+ a **plate** (tag, title, tagline, stat chips) + **controls** (a physical PLAY button
-with a 3D press shadow, and a status LED). Icons are authored SVG in one chunky, filled,
-accent+white style — never emoji.
+Screen (tinted halftone + inked emblem) → caption box (yellow `data-accent` tag) + status →
+Bangers title → **speech bubble** tagline (with a CSS tail) → inked stat labels → comic action
+button. Bento grid (4-col desktop → 2-col ≤860 → 1-col ≤560).
 
 ## Motion
 
-One authored **power-on**: the marquee flickers on like neon, cabinets focus in
-(opacity + blur, never transform, so the hover lift stays free), staggered. Hover lifts
-the cabinet, blooms its neon edge, sweeps a glare across the screen and nudges the arrow.
-A perspective floor grid scrolls slowly. All motion is gated behind
-`prefers-reduced-motion: no-preference`; the page is fully legible and static without it.
+Entrance is one authored moment: panels **ink in** (opacity + blur only — never transform or
+shadow, so the `:hover` pop stays free), staggered. All motion gated behind
+`prefers-reduced-motion: no-preference`; the page is fully legible static.
 
-## Adding a cabinet
+## The gate
 
-See the comment block above `.wall` in `index.html`. New accents get a
-`.cab[data-accent="x"]{ --a:#hex }` rule in `styles.css`; everything else follows.
+`gate.js` (comic-styled: inked card, red ENTER! button) is on every page. Password stored as a
+SHA-256 hash; re-prompts on refresh (clears the session unlock when the navigation type is a
+reload) but not on in-site navigation. See README *Security*.
+
+## Adding a panel
+
+Copy an `<a class="cab">` block in `index.html`; set `data-accent` (+ a
+`.cab[data-accent="x"]{ --a:#hex }` rule in `styles.css`), `data-kind`, `data-live`, `href`;
+swap the emblem SVG, tag, title, tagline, stats.

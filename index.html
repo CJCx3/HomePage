@@ -4,10 +4,10 @@
   <script src="gate.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Made by Connor — the arcade</title>
-  <meta name="description" content="An arcade of the things Connor Corkum has built. Step up to a cabinet and press play." />
-  <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#0a0710" />
+  <title>Made by Connor — the collection</title>
+  <meta name="description" content="A comic-book collection of the things Connor Corkum has built. Flip through the panels and dive in." />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f3e6c2" />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
@@ -18,25 +18,26 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!--
-  DIRECTION CONTRACT — "MADE BY CONNOR" arcade hub
-  THESIS: The hub is an arcade hall, not a portfolio grid. Each project is a lit
-    cabinet you walk up to and press PLAY. Refuses the uniform icon+heading+text card wall.
-  OWN-WORLD: Deep purple-black hall; six distinct neon accents; Bungee marquee lettering;
-    coin-gold chrome; CRT scanlines + a perspective floor grid; authored pixel-emblem screens;
-    physical controls (PLAY buttons, status LEDs). Full neon always; only the LED + button
-    copy signal whether a cabinet is plugged in yet.
-  STORY: Visitor reads the "MADE BY CONNOR" marquee -> understands it's an arcade of built
-    things -> scans glowing cabinets (each proving what it is) -> presses PLAY to launch one.
-  FIRST VIEWPORT: Full-bleed dark hall; centered neon marquee + subtitle + live cabinet count;
-    the AweCrap flagship cabinet begins glowing immediately below in an asymmetric bento.
-  FORM: Arcade cabinet wall / bento of cabinets. (User-pinned world: "Bold arcade".)
+  DIRECTION CONTRACT — "MADE BY CONNOR" comic-book collection
+  THESIS: The hub is a comic-book page, not a portfolio grid. Each project is a
+    hand-inked panel with a caption box, a speech bubble, and a bold action button.
+    Refuses the uniform icon+heading+text card wall and the dark-neon default.
+  OWN-WORLD: Cream newsprint with Ben-Day halftone dots; thick black ink outlines;
+    hard black offset shadows (authentic pop-art); pop primaries + six panel accents;
+    Bangers display lettering, Comic Neue dialogue; caption boxes, speech bubbles, and
+    a jagged "burst" behind the title. Emblems re-inked with black outlines.
+  STORY: Reader lands on the "MADE BY CONNOR" splash panel -> reads it's a collection of
+    built things -> scans the panels (each proving what it is) -> hits the action button.
+  FIRST VIEWPORT: Splash panel up top (huge Bangers title in a burst + caption stats);
+    the AweCrap flagship panel leads an asymmetric comic grid immediately below.
+  FORM: Comic-book page / panel grid. (User-pinned world: "Comic book art style".)
   FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->
 
@@ -57,11 +58,11 @@
       <span class="marquee__pre">MADE&nbsp;BY</span>
       <h1 class="marquee__name">CONNOR</h1>
     </div>
-    <p class="marquee__sub">An arcade of the things I&rsquo;ve built. Step up to a cabinet and press&nbsp;play.</p>
+    <p class="marquee__sub">A collection of the things I&rsquo;ve built. Every project&rsquo;s a story &mdash; flip through the panels and dive&nbsp;in.</p>
     <div class="marquee__meta" role="list">
-      <span class="chip" role="listitem"><b>6</b>&nbsp;cabinets</span>
-      <span class="chip chip--live" role="listitem"><i class="led"></i><span data-online-count>0</span>&nbsp;online</span>
-      <span class="chip chip--coin" role="listitem"><span class="coin">◉</span>&nbsp;insert&nbsp;coin</span>
+      <span class="chip" role="listitem"><b>6</b>&nbsp;stories</span>
+      <span class="chip chip--live" role="listitem"><i class="led"></i><span data-online-count>0</span>&nbsp;live</span>
+      <span class="chip chip--coin" role="listitem"><span class="coin">★</span>&nbsp;dig&nbsp;in</span>
     </div>
   </header>
 
@@ -99,7 +100,7 @@
         <h2 class="cab__title">AweCrap</h2>
         <p class="cab__tagline">Purgatory&rsquo;s casino. You bet with your life &mdash; and you&rsquo;re bleeding the whole time.</p>
         <ul class="cab__stats"><li>5 acts</li><li>127 cards</li><li>5 bosses</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
@@ -123,7 +124,7 @@
         <h2 class="cab__title">Metanoia</h2>
         <p class="cab__tagline">A quiet game about noticing. A grey day blooms back into colour, one letter at a time.</p>
         <ul class="cab__stats"><li>3 letters</li><li>1 grey day</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
@@ -149,7 +150,7 @@
         <h2 class="cab__title">MTTD</h2>
         <p class="cab__tagline">Five era-authentic machines that control your Spotify. The machine <em>is</em> the interface.</p>
         <ul class="cab__stats"><li>5 devices</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
@@ -172,7 +173,7 @@
         <h2 class="cab__title">The Counter</h2>
         <p class="cab__tagline">Snap the list on your fridge &rarr; it reads it, sorts chores from shopping, and hands you a deli-ticket board to tap off as you go.</p>
         <ul class="cab__stats"><li>Photo &rarr; list</li><li>Works offline</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
@@ -199,7 +200,7 @@
         <h2 class="cab__title">DayTrader</h2>
         <p class="cab__tagline">A small, honest day-trading bot. Costs always modelled, buy-and-hold always the bar, kill-switch always on.</p>
         <ul class="cab__stats"><li>Backtest</li><li>Paper</li><li>Live</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 
@@ -223,7 +224,7 @@
         <h2 class="cab__title">Home Hub</h2>
         <p class="cab__tagline">Time, weather, tasks and groceries on one calm screen &mdash; with a full-screen ambient TV mode.</p>
         <ul class="cab__stats"><li>Time</li><li>Weather</li><li>Tasks</li></ul>
-        <span class="cab__cta"><span class="cab__ctatxt">Insert&nbsp;coin</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
 

@@ -6,59 +6,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DayTrader — install · Made by Connor</title>
 <meta name="description" content="DayTrader — a small, honest day-trading bot. Download the source, setup instructions, and what it's for." />
-<meta name="color-scheme" content="dark" />
+<meta name="color-scheme" content="light" />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
 <style>
-  :root{ --a:#25d0ff; --bg:#0a0710; --bg2:#0f0a18; --panel:#160e24; --edge:#2a1f3d;
-         --ink:#f6f1ff; --dim:#cdbfe4; --mute:#9d8cbb;
-         --display:"Bungee",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif; }
+  :root{ --a:#26b3ff; --paper:#f3e6c2; --panel:#fffdf6; --ink:#17130d; --dim:#2c2519;
+         --pop-yellow:#ffd23f; --pop-red:#ff3b3b;
+         --display:"Bangers",system-ui,sans-serif; --dialog:"Comic Neue",system-ui,sans-serif;
+         --w:3px; --sh:7px 7px 0 var(--ink); --sh-sm:3px 3px 0 var(--ink); }
   *{ box-sizing:border-box; }
-  body{ margin:0; background:
-        radial-gradient(120% 70% at 50% -10%, #10233a 0%, var(--bg2) 45%, var(--bg) 80%);
-        color:var(--ink); font-family:var(--sans); line-height:1.6; min-height:100vh; }
-  .wrap{ width:min(760px,92vw); margin-inline:auto; padding:28px 0 80px; }
-  a{ color:var(--a); }
-  .back{ display:inline-flex; align-items:center; gap:.5ch; color:var(--mute); text-decoration:none;
-         font-weight:700; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; }
-  .back:hover{ color:var(--ink); }
+  body{ margin:0; min-height:100vh; color:var(--ink); font-family:var(--dialog); font-weight:700; line-height:1.55;
+        background-color:var(--paper); background-image:radial-gradient(rgba(23,19,13,.2) 1.3px,transparent 1.5px); background-size:9px 9px; }
+  .wrap{ width:min(760px,92vw); margin-inline:auto; padding:26px 0 84px; }
+  a{ color:var(--ink); }
+  .back{ display:inline-flex; align-items:center; gap:.5ch; font-family:var(--dialog); font-weight:700; text-transform:uppercase;
+         font-size:.78rem; letter-spacing:.06em; color:var(--ink); background:var(--pop-yellow);
+         border:2px solid var(--ink); border-radius:5px; padding:.35em .7em; box-shadow:var(--sh-sm); }
+  .back:hover{ transform:translate(-1px,-1px); }
   .hero{ margin-top:26px; }
-  h1{ font-family:var(--display); font-size:clamp(2.4rem,8vw,4rem); margin:.1em 0 0;
-      color:var(--ink); text-shadow:0 0 24px color-mix(in oklab,var(--a) 55%,transparent); }
-  .lede{ font-size:1.2rem; color:var(--dim); max-width:54ch; margin:.6em 0 0; }
-  .badges{ display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; }
-  .badge{ font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-          color:color-mix(in oklab,var(--a) 30%,var(--ink)); padding:.4em .7em; border-radius:8px;
-          background:color-mix(in oklab,var(--a) 12%,transparent); border:1px solid color-mix(in oklab,var(--a) 30%,transparent); }
-  .dl{ display:inline-flex; align-items:center; gap:.6ch; margin:26px 0 4px;
-       font-family:var(--display); font-size:1rem; color:#03151c; text-decoration:none;
-       background:color-mix(in oklab,var(--a) 84%,#fff); padding:.85em 1.3em; border-radius:12px;
-       box-shadow:0 6px 0 color-mix(in oklab,var(--a) 55%,#000), 0 14px 30px -10px color-mix(in oklab,var(--a) 70%,transparent);
-       transition:transform .12s ease, box-shadow .12s ease; }
-  .dl:hover{ transform:translateY(2px); box-shadow:0 4px 0 color-mix(in oklab,var(--a) 55%,#000), 0 10px 22px -10px color-mix(in oklab,var(--a) 70%,transparent); }
-  .dl small{ font-family:var(--sans); font-weight:700; opacity:.75; }
-  .note{ color:var(--mute); font-size:.85rem; margin:.3em 0 0; }
-  section{ margin-top:44px; }
-  h2{ font-family:var(--display); font-size:1.15rem; color:var(--a); margin:0 0 14px; letter-spacing:.02em; }
-  ol,ul{ padding-left:1.25em; margin:0; }
-  li{ margin:.5em 0; color:var(--dim); }
-  li b, li strong{ color:var(--ink); }
-  code{ font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-size:.86em;
-        background:#0c0814; border:1px solid var(--edge); border-radius:6px; padding:.12em .45em; color:#e9dfff; }
-  pre{ background:#0c0814; border:1px solid var(--edge); border-radius:10px; padding:14px 16px; overflow-x:auto; margin:.6em 0; }
-  pre code{ background:none; border:0; padding:0; color:#d8ccf5; }
-  .callout{ border-left:3px solid var(--a); padding:2px 0 2px 14px; color:var(--dim); }
-  .warn{ background:color-mix(in oklab,#ff5470 10%,var(--panel)); border:1px solid color-mix(in oklab,#ff5470 40%,var(--edge));
-         border-radius:12px; padding:14px 18px; color:var(--dim); }
-  .warn b{ color:#ff8ba0; }
-  footer{ margin-top:60px; padding-top:22px; border-top:1px solid var(--edge); color:var(--mute); font-size:.85rem; }
+  h1{ font-family:var(--display); font-size:clamp(2.8rem,10vw,5rem); margin:.1em 0 0; line-height:.9; letter-spacing:.02em;
+      color:var(--a); -webkit-text-stroke:2.4px var(--ink); paint-order:stroke fill; text-shadow:4px 4px 0 var(--ink); }
+  .lede{ position:relative; font-size:1.15rem; color:var(--ink); background:var(--panel);
+         border:var(--w) solid var(--ink); border-radius:14px; padding:.7em 1em; box-shadow:var(--sh-sm); margin:.9em 0 0; max-width:58ch; }
+  .lede em{ font-style:italic; }
+  .badges{ display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 0; }
+  .badge{ font-family:var(--dialog); font-weight:700; text-transform:uppercase; font-size:.7rem; letter-spacing:.04em; color:var(--ink);
+          background:var(--pop-yellow); border:2px solid var(--ink); border-radius:5px; padding:.32em .6em; box-shadow:var(--sh-sm); }
+  .dl{ display:inline-flex; align-items:center; gap:.5ch; margin:26px 0 6px; font-family:var(--display); font-size:1.5rem; letter-spacing:.04em;
+       color:#fff; -webkit-text-stroke:1px var(--ink); paint-order:stroke fill; text-decoration:none;
+       background:var(--a); border:var(--w) solid var(--ink); border-radius:8px; padding:.4em .9em; box-shadow:var(--sh);
+       transition:transform .1s, box-shadow .1s; }
+  .dl small{ font-family:var(--dialog); font-weight:700; -webkit-text-stroke:0; font-size:.9rem; }
+  .dl:hover{ transform:translate(-2px,-2px); box-shadow:9px 9px 0 var(--ink); }
+  .dl:active{ transform:translate(2px,2px); box-shadow:var(--sh-sm); }
+  .note{ color:var(--dim); font-size:.85rem; margin:.3em 0 0; }
+  section{ margin-top:46px; }
+  h2{ font-family:var(--display); font-size:1.7rem; color:var(--a); margin:0 0 16px; letter-spacing:.02em;
+      -webkit-text-stroke:1.2px var(--ink); paint-order:stroke fill; text-shadow:2px 2px 0 var(--ink); }
+  ol,ul{ padding-left:1.3em; margin:0; }
+  li{ margin:.55em 0; color:var(--ink); }
+  li b, li strong{ color:var(--ink); background:color-mix(in srgb,var(--pop-yellow) 55%,#fff); padding:0 .15em; }
+  code{ font-family:ui-monospace,"Cascadia Code",Consolas,monospace; font-weight:400; font-size:.86em;
+        background:#fff; border:2px solid var(--ink); border-radius:5px; padding:.05em .4em; color:var(--ink); }
+  pre{ background:#fff; border:var(--w) solid var(--ink); border-radius:10px; padding:14px 16px; overflow-x:auto; margin:.6em 0; box-shadow:var(--sh-sm); }
+  pre code{ background:none; border:0; padding:0; }
+  .callout{ position:relative; background:var(--panel); border:var(--w) solid var(--ink); border-radius:14px;
+            padding:.8em 1em; box-shadow:var(--sh-sm); color:var(--ink); }
+  .warn{ background:color-mix(in srgb,var(--pop-red) 16%,#fff); border:var(--w) solid var(--ink); border-radius:12px;
+         padding:.8em 1em; color:var(--ink); box-shadow:var(--sh-sm); }
+  .warn b{ color:var(--pop-red); }
+  footer{ margin-top:60px; background:var(--panel); border:2px solid var(--ink); border-radius:8px; box-shadow:var(--sh-sm);
+          padding:14px 18px; color:var(--dim); font-size:.9rem; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="../">&larr; back to the arcade</a>
+  <a class="back" href="../">&larr; back to the collection</a>
 
   <div class="hero">
     <h1>DayTrader</h1>

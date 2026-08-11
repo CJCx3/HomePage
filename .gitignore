@@ -22,3 +22,5 @@ Projects/
 .env
 **/.env
 !**/.env.example
+_preview.html
+**/_preview.html

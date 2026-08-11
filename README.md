@@ -1,11 +1,11 @@
 # Made by Connor — the arcade
 
-A single-page hub for everything Connor Corkum has built, styled as a neon
-**arcade hall**: every project is a lit cabinet you press to launch. Plain static
-site — **HTML, CSS, a little JS, no build step**.
+A single-page hub for everything Connor Corkum has built, styled as a
+**comic-book page**: every project is a hand-inked panel you press to launch. Plain
+static site — **HTML, CSS, a little JS, no build step**.
 
-The whole site sits behind a **password gate** on first visit each session
-(see *Security* below), and it's published on **GitHub Pages** →
+The whole site sits behind a **password gate** (shown on entry and on every refresh;
+see *Security* below), and it's published on **GitHub Pages** →
 `https://cjcx3.github.io/HomePage/`.
 
 ## The cabinets
