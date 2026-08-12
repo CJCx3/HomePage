@@ -49,6 +49,23 @@ Each cabinet is an `<a class="cab" …>` block in [`index.html`](index.html) wit
 Copy a block, swap the emblem SVG, title, tagline and stats; add a colour rule
 `.cab[data-accent="x"]{ --a:#hex }` in [`styles.css`](styles.css) for a new accent.
 
+## Editing a project
+
+Each web project has **two copies**: the *source* you develop (a full app, in the
+workspace folder next to this repo) and the trimmed *web copy* that ships here and gets
+served. Edit the source, then run one command to rebuild the shipped copies:
+
+```bash
+node scripts/sync.mjs            # all projects   (or e.g. node scripts/sync.mjs the-counter)
+```
+
+It rebuilds `awecrap/ metanoia/ the-counter/ home-hub/` from their sources and
+re-applies every deploy transform automatically — injecting the password gate,
+rewriting AweCrap's music to the GitHub Release, and scrubbing Home Hub's personal/network
+data — so you never hand-edit a shipped copy. Review with `git status`, then commit.
+`node scripts/sync.mjs --list` prints the source→dest mapping. (MTTD and DayTrader are
+hand-written install pages, not built from a source app, so they aren't synced.)
+
 ## Files
 
 - `index.html` · `styles.css` · `main.js` — the hub (six cabinets, online counter, toast)
