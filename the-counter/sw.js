@@ -1,7 +1,7 @@
 /* ══════════════════════════  The Counter — service worker  ══════════════════════════
    Offline-first. Precache the app shell; cache-first for same-origin assets so the
    whole app (and later the bundled OCR engine) runs with no signal in the store. */
-const CACHE = "counter-v2";
+const CACHE = "counter-v4";
 
 const SHELL = [
   "./",
@@ -10,6 +10,7 @@ const SHELL = [
   "./app.js",
   "./scan.js",
   "./lib/ocr.js",
+  "./lib/cloud.js",
   "./manifest.webmanifest",
   "./fonts/bebas-neue-400.woff2",
   "./fonts/libre-franklin-400.woff2",

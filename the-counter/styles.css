@@ -525,6 +525,35 @@ h1,h2,h3,p{ margin:0; }
 .reading__actions{ margin-top:16px; }
 @keyframes spin{ to{ transform:rotate(360deg); } }
 
+.reading__bar.is-indeterminate{ overflow:hidden; }
+.reading__bar.is-indeterminate > i{ width:42%; transform:none; animation:indet 1.15s ease-in-out infinite; }
+@keyframes indet{ 0%{ transform:translateX(-115%); } 100%{ transform:translateX(320%); } }
+
+/* ────────────────────────────  settings / smart reader  ───────────────────── */
+.gear{
+  position:absolute; top:-2px; right:0;
+  width:42px; height:42px; border-radius:11px; cursor:pointer;
+  display:grid; place-items:center; color:var(--ink-soft);
+  background:transparent; border:none;
+}
+.gear:active{ transform:translateY(1px); color:var(--ink); }
+@media (hover:hover){ .gear:hover{ color:var(--ink); } }
+
+.sheet__note{ color:var(--ink-soft); font-size:.92rem; line-height:1.5; margin-bottom:14px; }
+.sheet__note strong{ color:var(--ink); }
+.sheet__link{ color:var(--red-deep); font-weight:700; text-decoration:none; white-space:nowrap; }
+.sheet__link:active{ opacity:.7; }
+.set__status{ margin-top:12px; font-size:.9rem; font-weight:600; line-height:1.4; color:var(--ink-soft); }
+.set__status.is-ok{ color:var(--green-deep); }
+.set__status.is-err{ color:var(--red-deep); }
+.set__status.is-warn{ color:var(--brass); }
+.set__linkbtn{
+  display:block; width:100%; margin-top:14px; padding:6px; cursor:pointer;
+  background:none; border:none; font-weight:700; font-size:.86rem; color:var(--ink-soft);
+}
+.set__linkbtn:active{ color:var(--ink); }
+.set__remove{ color:var(--red-deep); }
+
 /* ────────────────────────────  larger screens  ───────────────────────────── */
 @media (min-width:680px){
   .board-sub{ font-size:.74rem; }

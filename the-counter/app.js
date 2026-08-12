@@ -159,6 +159,85 @@ addForm.addEventListener("submit", e => { e.preventDefault(); const v = addInput
 el("#addCancel").addEventListener("click", closeAdd);
 addSheet.addEventListener("click", e => { if(e.target === addSheet) closeAdd(); });
 
+/* ────────────────────────  smart-reader (Gemini) settings  ──────────────────────── */
+const setSheet = el("#setSheet");
+const setForm  = el("#setForm");
+const setKeyInput = el("#setKeyInput");
+const setStatus = el("#setStatus");
+const setSkip  = el("#setSkip");
+const setClear = el("#setClear");
+const setTest  = el("#setTest");
+
+function cloudErrText(code){
+  switch(code){
+    case "BAD_KEY":      return "That key didn't work — copy it again from Google AI Studio.";
+    case "QUOTA":        return "Gemini's free limit is maxed out for now — try again later.";
+    case "OFFLINE":      return "No connection — can't reach the reader right now.";
+    case "BAD_RESPONSE": return "Got an unexpected reply — try once more.";
+    case "NO_MODEL":     return "Your key works, but no compatible Gemini model is enabled on its project.";
+    case "HTTP_404":     return "Couldn't find a reader model for your key — try again, or make a fresh key.";
+    default:             return "Couldn't reach the reader (" + (code || "error") + ").";
+  }
+}
+function setStatusMsg(msg, kind){
+  setStatus.hidden = false; setStatus.textContent = msg;
+  setStatus.className = "set__status" + (kind ? " is-" + kind : "");
+}
+function openSettings(firstTime){
+  const has = window.Cloud && window.Cloud.hasKey();
+  setKeyInput.value = has ? window.Cloud.getKey() : "";
+  setStatus.hidden = true; setStatus.textContent = "";
+  setSkip.hidden = !firstTime;
+  setClear.hidden = !has;
+  setSheet.hidden = false;
+  if(!has) setTimeout(() => setKeyInput.focus(), 60);
+}
+function closeSettings(){ setSheet.hidden = true; }
+
+setForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const k = setKeyInput.value.trim();
+  if(!k){ setStatusMsg("Paste a key first, or tap Close.", "warn"); return; }
+  window.Cloud.setKey(k);
+  setStatusMsg("Saved — snap the fridge and it'll read it for you.", "ok");
+  setClear.hidden = false;
+  setTimeout(closeSettings, 750);
+});
+el("#setCancel").addEventListener("click", closeSettings);
+setSheet.addEventListener("click", e => { if(e.target === setSheet) closeSettings(); });
+setSkip.addEventListener("click", () => { closeSettings(); if(window.Scan) window.Scan.startOffline(); });
+setClear.addEventListener("click", () => {
+  window.Cloud.clearKey(); setKeyInput.value = ""; setClear.hidden = true;
+  setStatusMsg("Key removed — scans will use the offline reader.", "warn");
+});
+setTest.addEventListener("click", async () => {
+  const k = setKeyInput.value.trim();
+  if(!k){ setStatusMsg("Paste a key to test.", "warn"); return; }
+  window.Cloud.setKey(k);
+  if(window.Cloud.resetModel) window.Cloud.resetModel();   // force a fresh model discovery
+  setStatusMsg("Testing…", "");
+  setTest.disabled = true;
+  try {
+    const model = await window.Cloud.test();
+    setStatusMsg("✓ Working — using " + (typeof model === "string" ? model : "Gemini") + ".", "ok");
+    setClear.hidden = false;
+  } catch(err){
+    let detail = "";
+    try {
+      const d = await window.Cloud.diagnose();
+      if(d && !d.ok){
+        if(d.tried && d.tried.length) detail = " · tried: " + d.tried.join(", ");
+        else if(d.msg) detail = " · " + d.msg;
+        else if(typeof d.count === "number") detail = " · " + d.count + " models found";
+      }
+    } catch(e){}
+    setStatusMsg(cloudErrText(err && err.message) + detail, "err");
+  } finally { setTest.disabled = false; }
+});
+el("#gearBtn").addEventListener("click", () => openSettings(false));
+
+window.Settings = { open: openSettings, close: closeSettings, errText: cloudErrText };
+
 /* ────────────────────────────  wiring  ───────────────────────────────── */
 el("#addBtn").addEventListener("click", openAdd);
 servedToggle.addEventListener("click", () => { state.servedOpen = !state.servedOpen; render(); });

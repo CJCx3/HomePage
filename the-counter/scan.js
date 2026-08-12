@@ -40,11 +40,22 @@
   const SVG_SWAP  = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 8h11l-3-3M17 16H6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
   /* ───────────────────────────  1. capture  ─────────────────────────── */
+  let forceOffline = false;
+
   const fileInput = h("input", { type: "file", accept: "image/*", class: "sr-only",
     onchange: e => { const f = e.target.files && e.target.files[0]; e.target.value = ""; if (f) loadPhoto(f); } });
   document.body.appendChild(fileInput);
 
-  function start() { fileInput.click(); }
+  function start() {
+    // first scan with the smart reader available but no key yet → nudge to set it up
+    if (window.Cloud && !window.Cloud.hasKey() && navigator.onLine && window.Settings) {
+      window.Settings.open(true);
+      return;
+    }
+    forceOffline = false;
+    fileInput.click();
+  }
+  function startOffline() { forceOffline = true; fileInput.click(); }
 
   async function loadPhoto(file) {
     let bmp;
@@ -56,15 +67,45 @@
         im.src = URL.createObjectURL(file);
       });
     }
-    natW = bmp.width || bmp.naturalWidth;
-    natH = bmp.height || bmp.naturalHeight;
+    natW = bmp.naturalWidth || bmp.width;
+    natH = bmp.naturalHeight || bmp.height;
     srcCanvas = document.createElement("canvas");
     srcCanvas.width = natW; srcCanvas.height = natH;
     srcCanvas.getContext("2d").drawImage(bmp, 0, 0, natW, natH);
-    dv.orient = natW >= natH ? "v" : "v";   // default vertical split (chores | shopping)
-    dv.frac = 0.5; dv.shopSide = "b"; dv.noChores = false;
+
+    const useCloud = !forceOffline && window.Cloud && window.Cloud.hasKey() && navigator.onLine;
+    forceOffline = false;
+    if (useCloud) runCloudRead();
+    else showDividerFlow();
+  }
+
+  function showDividerFlow() {
+    dv.orient = "v"; dv.frac = 0.5; dv.shopSide = "b"; dv.noChores = false;
     renderDivider();
     show(vDivider);
+  }
+
+  /* smart reader (Gemini): reads + splits the board itself, so no divider needed */
+  async function runCloudRead() {
+    const overlay = readingOverlay("Reading your board…", "Reading it with Gemini — one moment.");
+    overlay.querySelector(".reading__bar").classList.add("is-indeterminate");
+    document.body.appendChild(overlay);
+    try {
+      const { grocery, chores } = await window.Cloud.readBoard(srcCanvas);
+      overlay.remove();
+      showReview(grocery, chores);
+    } catch (err) {
+      const code = err && err.message;
+      overlay.querySelector(".reading__spin").style.display = "none";
+      overlay.querySelector(".reading__bar").style.display = "none";
+      overlay.querySelector(".reading__label").textContent = "Switching to offline reading";
+      overlay.querySelector(".reading__sub").textContent =
+        window.Settings ? window.Settings.errText(code) : "Couldn't reach the reader.";
+      const box = overlay.querySelector(".reading__actions"); box.hidden = false;
+      const btn = box.querySelector("button");
+      btn.textContent = "Continue offline";
+      btn.onclick = () => { overlay.remove(); showDividerFlow(); };
+    }
   }
 
   /* ───────────────────────────  2. divider  ─────────────────────────── */
@@ -351,17 +392,17 @@
   function refreshSeg() { document.querySelectorAll(".seg__btn").forEach(b => b.classList.toggle("is-on", !!(b._isOn && b._isOn()))); }
   function cancelToList() { show(vList); }
 
-  function readingOverlay() {
+  function readingOverlay(label, sub) {
     return h("div", { class: "reading" }, [
       h("div", { class: "reading__card" }, [
         h("div", { class: "reading__spin", "aria-hidden": "true" }),
-        h("p", { class: "reading__label" }, ["Reading your list…"]),
+        h("p", { class: "reading__label" }, [label || "Reading your list…"]),
         h("div", { class: "reading__bar" }, [h("i", {})]),
-        h("p", { class: "reading__sub" }, ["Working on your phone — nothing is uploaded."]),
+        h("p", { class: "reading__sub" }, [sub || "Working on your phone — nothing is uploaded."]),
         h("div", { class: "reading__actions", hidden: "hidden" }, [h("button", { class: "btn btn--scan btn--wide" }, ["Type it instead"])]),
       ]),
     ]);
   }
 
-  window.Scan = { start };
+  window.Scan = { start, startOffline };
 })();
