@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Exteriors — Quotes</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --indigo: #4a3c8c;
+    --indigo-deep: #342d6b;
+    --indigo-bright: #5a4ba6;
+    --copper: #c4895a;
+    --copper-dark: #a96f3f;
+
+    --bg: #f3f1f9;
+    --card: #ffffff;
+    --ink: #21243d;
+    --muted: #6b6a86;
+    --line: #e7e4f1;
+    --chip: #f6f4fc;
+    --footer-navy: #12213a;
+    --footer-ink: #e7ecf5;
+    --footer-muted: #9fb0c8;
+    --header-from: #4e4199;
+    --header-to: #342d6b;
+    --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+      --line: #2b2f52; --chip: #171b34;
+      --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+      --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f3f1f9; --card: #ffffff; --ink: #21243d; --muted: #6b6a86;
+    --line: #e7e4f1; --chip: #f6f4fc;
+    --footer-navy: #12213a; --footer-ink: #e7ecf5; --footer-muted: #9fb0c8;
+    --header-from: #4e4199; --header-to: #342d6b; --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+    --line: #2b2f52; --chip: #171b34;
+    --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+    --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.4;
+    overflow-x: hidden; text-size-adjust: 100%; -webkit-text-size-adjust: 100%;
+    min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column;
+  }
+  .serif { font-family: Georgia, "Times New Roman", "Iowan Old Style", serif; }
+  .wrap { max-width: 1040px; width: 100%; margin: 0 auto; padding: 0 18px 44px; flex: 1 0 auto; }
+  header.brand, footer.brandfoot { flex-shrink: 0; }
+
+  header.brand {
+    background: linear-gradient(160deg, var(--header-from) 0%, var(--header-to) 100%);
+    color: #fff; padding: 30px 18px 30px; text-align: center;
+  }
+  .brand-inner {
+    max-width: 1040px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .home-link {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+    background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 8px 13px; border-radius: 999px; transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .home-link:hover { background: rgba(255, 255, 255, 0.22); }
+  .home-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .logo { position: relative; display: inline-block; padding-top: 14px; text-decoration: none; }
+  .logo:hover { opacity: 0.92; }
+  .logo .roofline { position: absolute; top: 0; left: -4px; width: clamp(96px, 30vw, 116px); height: 26px; overflow: visible; }
+  .logo .word {
+    display: flex; flex-direction: column; align-items: flex-start;
+    line-height: 0.94; letter-spacing: -0.005em;
+    font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 800; color: #fff;
+  }
+  .logo .word .l1, .logo .word .l2 { font-size: clamp(26px, 8vw, 34px); }
+  header.brand h1 { margin: 0; font-size: clamp(16px, 4.6vw, 20px); font-weight: 400; font-style: italic; color: var(--header-sub); }
+  .brand-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--header-sub); opacity: 0.9;
+  }
+
+  .count { margin: 24px 2px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+  /* Thumbnail grid */
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px;
+  }
+  .thumb {
+    padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    background: var(--chip); cursor: pointer; aspect-ratio: 1 / 1;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .thumb:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .thumb:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .empty {
+    text-align: center; color: var(--muted); font-size: 14px; padding: 40px 12px;
+    border: 1px dashed var(--line); border-radius: var(--radius);
+  }
+
+  /* Lightbox */
+  .lb {
+    position: fixed; inset: 0; z-index: 100; background: rgba(10, 12, 24, 0.92);
+    display: none; opacity: 0; transition: opacity 0.18s;
+  }
+  .lb.open { display: block; opacity: 1; }
+  .lb-stage {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    overflow: auto; padding: 56px 12px; -webkit-overflow-scrolling: touch;
+  }
+  .lb-img {
+    max-width: 100%; max-height: 100%; object-fit: contain; display: block;
+    cursor: zoom-in; user-select: none; -webkit-user-drag: none;
+    border-radius: 6px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+  .lb.zoomed .lb-stage { align-items: flex-start; justify-content: flex-start; cursor: grab; }
+  .lb.zoomed .lb-img { max-width: none; max-height: none; width: auto; height: auto; cursor: zoom-out; }
+  .lb-btn {
+    position: absolute; z-index: 2; border: none; cursor: pointer; color: #fff;
+    background: rgba(255, 255, 255, 0.14); backdrop-filter: blur(4px);
+    display: grid; place-items: center; border-radius: 999px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .lb-btn:hover { background: rgba(255, 255, 255, 0.26); }
+  .lb-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .lb-btn svg { width: 24px; height: 24px; }
+  .lb-close { top: 12px; right: 12px; width: 44px; height: 44px; }
+  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); width: 46px; height: 46px; }
+  .lb-prev { left: 12px; }
+  .lb-next { right: 12px; }
+  .lb-counter {
+    position: absolute; top: 16px; left: 16px; z-index: 2; color: #fff;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
+    background: rgba(0, 0, 0, 0.35); padding: 6px 12px; border-radius: 999px;
+    font-variant-numeric: tabular-nums;
+  }
+  .lb-hint {
+    position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 2;
+    color: rgba(255, 255, 255, 0.75); font-size: 12px; letter-spacing: 0.02em;
+    background: rgba(0, 0, 0, 0.35); padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+  }
+
+  footer.brandfoot {
+    background: var(--footer-navy); color: var(--footer-muted);
+    padding: 22px 18px; margin-top: 30px; text-align: center;
+    font-size: 13px; letter-spacing: 0.02em;
+  }
+  footer.brandfoot a { color: var(--footer-ink); font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .lb-hint { display: none; }
+  }
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* Back-to-top button */
+  .to-top {
+    position: fixed; z-index: 50;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--copper); color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    display: grid; place-items: center;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .to-top.show { opacity: 0.9; visibility: visible; transform: translateY(0); }
+  .to-top:hover { opacity: 1; background: var(--copper-dark); }
+  .to-top:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .to-top svg { width: 22px; height: 22px; }
+  @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+  @media print { .to-top, .lb { display: none !important; } }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="brand-inner">
+    <a class="home-link" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>
+      </svg>
+      Home
+    </a>
+    <a class="logo" href="index.html" aria-label="Modern Exteriors home">
+      <svg class="roofline" viewBox="0 0 116 26" fill="none" aria-hidden="true">
+        <path d="M2 24 L2 20 L40 2 L74 20" stroke="#ffffff" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="word"><span class="l1">Modern</span><span class="l2">Exteriors</span></span>
+    </a>
+    <h1 class="serif">Quotes</h1>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="count" id="count">Photos</div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>Photos are being added — check back shortly.</div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+  <div class="lb-counter" id="lbCounter">1 / 1</div>
+  <button type="button" class="lb-btn lb-close" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button type="button" class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button type="button" class="lb-btn lb-next" id="lbNext" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <div class="lb-stage" id="lbStage">
+    <img class="lb-img" id="lbImg" alt="" />
+  </div>
+  <div class="lb-hint">Click image to zoom · drag to pan · ← → to browse · Esc to close</div>
+</div>
+
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<footer class="brandfoot">
+  Modern Exteriors &middot; Field Tools &middot; <a href="tel:+18555566337">(855)&nbsp;556-6337</a>
+</footer>
+
+<script>
+  /* ---- Image source ----
+     Self-hosted in images/quotes/. Grid uses lightweight thumbnails
+     (images/quotes/thumbs/*.jpg); the lightbox loads the full-size file. */
+  var FILES = [
+    "IMG_0074.PNG","IMG_0075.PNG","IMG_0076.JPG","IMG_0077.JPG","IMG_0078.JPG",
+    "IMG_0079.JPG","IMG_0080.JPG","IMG_0081.PNG","IMG_0082.PNG","IMG_0083.PNG",
+    "IMG_0084.JPG","IMG_0085.JPG","IMG_0086.JPG","IMG_0088.PNG","IMG_0090.JPG",
+    "IMG_0091.JPG","IMG_0097.PNG","IMG_0098.PNG","IMG_0099.PNG","IMG_0100.PNG",
+    "IMG_0101.PNG","IMG_0103.PNG","IMG_0104.PNG","IMG_0108.JPG","IMG_0111.PNG",
+    "IMG_0112.PNG","IMG_0113.PNG","IMG_0114.PNG","IMG_0115.PNG","IMG_0116.PNG",
+    "IMG_0117.JPG","IMG_0118.JPG","IMG_0119.JPG","IMG_0120.JPG","IMG_0121.JPG",
+    "IMG_0122.JPG","IMG_0123.JPG"
+  ];
+  var PHOTOS = FILES.map(function (f) {
+    return {
+      thumb: "images/quotes/thumbs/" + f.replace(/\.[^.]+$/, "") + ".jpg",
+      full: "images/quotes/" + f
+    };
+  });
+
+  var grid = document.getElementById("grid");
+  var countEl = document.getElementById("count");
+  var emptyEl = document.getElementById("empty");
+
+  if (!PHOTOS.length) {
+    emptyEl.hidden = false;
+    countEl.textContent = "Photos";
+  } else {
+    countEl.textContent = PHOTOS.length + " Photos";
+    grid.innerHTML = PHOTOS.map(function (p, i) {
+      return '<button type="button" class="thumb" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + '">' +
+        '<img loading="lazy" decoding="async" src="' + p.thumb + '" alt="Modern Exteriors project photo ' + (i + 1) + '">' +
+        "</button>";
+    }).join("");
+  }
+
+  var lb = document.getElementById("lb");
+  var lbImg = document.getElementById("lbImg");
+  var lbStage = document.getElementById("lbStage");
+  var lbCounter = document.getElementById("lbCounter");
+  var cur = 0;
+
+  function render() {
+    lb.classList.remove("zoomed");
+    lbImg.src = PHOTOS[cur].full;
+    lbCounter.textContent = (cur + 1) + " / " + PHOTOS.length;
+  }
+  function openAt(i) {
+    cur = i; render();
+    lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    lb.classList.remove("open", "zoomed"); lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+  function go(d) { cur = (cur + d + PHOTOS.length) % PHOTOS.length; render(); }
+
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest(".thumb"); if (b) openAt(+b.dataset.i);
+  });
+  document.getElementById("lbClose").addEventListener("click", close);
+  document.getElementById("lbPrev").addEventListener("click", function (e) { e.stopPropagation(); go(-1); });
+  document.getElementById("lbNext").addEventListener("click", function (e) { e.stopPropagation(); go(1); });
+  lb.addEventListener("click", function (e) { if (e.target === lb || e.target === lbStage) close(); });
+
+  // Toggle zoom on image click (unless the user was dragging to pan)
+  var dragged = false;
+  lbImg.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (dragged) { dragged = false; return; }
+    lb.classList.toggle("zoomed");
+    if (lb.classList.contains("zoomed")) {
+      // center the zoom roughly on the click point
+      requestAnimationFrame(function () {
+        lbStage.scrollLeft = (lbStage.scrollWidth - lbStage.clientWidth) / 2;
+        lbStage.scrollTop = (lbStage.scrollHeight - lbStage.clientHeight) / 2;
+      });
+    }
+  });
+
+  // Drag-to-pan when zoomed
+  var down = false, sx = 0, sy = 0, sl = 0, st = 0;
+  lbStage.addEventListener("pointerdown", function (e) {
+    if (!lb.classList.contains("zoomed")) return;
+    down = true; dragged = false; sx = e.clientX; sy = e.clientY;
+    sl = lbStage.scrollLeft; st = lbStage.scrollTop;
+    lbStage.setPointerCapture(e.pointerId);
+  });
+  lbStage.addEventListener("pointermove", function (e) {
+    if (!down) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) dragged = true;
+    lbStage.scrollLeft = sl - dx; lbStage.scrollTop = st - dy;
+  });
+  lbStage.addEventListener("pointerup", function () { down = false; });
+
+  document.addEventListener("keydown", function (e) {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+  });
+
+  // Back-to-top
+  (function () {
+    var b = document.querySelector(".to-top");
+    if (!b) return;
+    var t = function () { if (window.pageYOffset > 300) b.classList.add("show"); else b.classList.remove("show"); };
+    window.addEventListener("scroll", t, { passive: true }); t();
+    b.addEventListener("click", function () {
+      var r = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: r ? "auto" : "smooth" });
+    });
+  })();
+</script>
+</body>
+</html>

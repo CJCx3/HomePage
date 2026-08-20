@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="gate.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Made by Connor — the collection</title>
@@ -60,7 +59,7 @@
     </div>
     <p class="marquee__sub">A collection of the things I&rsquo;ve built. Every project&rsquo;s a story &mdash; flip through the panels and dive&nbsp;in.</p>
     <div class="marquee__meta" role="list">
-      <span class="chip" role="listitem"><b>6</b>&nbsp;stories</span>
+      <span class="chip" role="listitem"><b>8</b>&nbsp;stories</span>
       <span class="chip chip--live" role="listitem"><i class="led"></i><span data-online-count>0</span>&nbsp;live</span>
       <span class="chip chip--coin" role="listitem"><span class="coin">★</span>&nbsp;dig&nbsp;in</span>
     </div>
@@ -75,7 +74,7 @@
       That's it — the LED turns green and the button becomes PLAY.
 
     To add a NEW cabinet, copy any <a class="cab"> block, then:
-      - set data-accent to one of: metanoia | awecrap | mttd | counter | daytrader | homehub
+      - set data-accent to one of: metanoia | awecrap | mttd | counter | daytrader | homehub | ledger
         (or add a new  .cab[data-accent="x"]{ --a: #hex; }  rule in styles.css)
       - swap the <svg class="emblem"> art, the tag, title, tagline, stats and status label.
   ============================================================================= -->
@@ -154,8 +153,8 @@
       </div>
     </a>
 
-    <!-- ---- THE COUNTER · tall (1x2) ---- -->
-    <a class="cab cab--tall" data-accent="counter" data-kind="open" data-live="true" href="the-counter/" aria-label="The Counter — snap your fridge list and shop it offline">
+    <!-- ---- THE COUNTER · square (1x1) ---- -->
+    <a class="cab" data-accent="counter" data-kind="open" data-live="true" href="the-counter/" aria-label="The Counter — snap your fridge list and shop it offline">
       <div class="cab__screen">
         <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
           <rect x="12" y="13" width="40" height="38" rx="4" fill="#fff"/>
@@ -173,6 +172,52 @@
         <h2 class="cab__title">The Counter</h2>
         <p class="cab__tagline">Snap the list on your fridge &rarr; it reads it, sorts chores from shopping, and hands you a deli-ticket board to tap off as you go.</p>
         <ul class="cab__stats"><li>Photo &rarr; list</li><li>Works offline</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- LEDGER · square (1x1) ---- -->
+    <a class="cab" data-accent="ledger" data-kind="open" data-live="true" href="ledger/" aria-label="Ledger — private, offline budgeting with accounts, envelope budgets and reports">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="19" fill="#fff"/>
+          <path d="M32 32 L32 13 A19 19 0 0 1 51 32 Z" fill="var(--a)"/>
+          <path d="M32 32 L51 32 A19 19 0 0 1 40.5 49.4 Z" fill="var(--a)" opacity=".6"/>
+          <circle cx="32" cy="32" r="4.4" fill="var(--a)"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Budgeting&nbsp;· Offline</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">Ledger</h2>
+        <p class="cab__tagline">Every dollar in, out and left over &mdash; envelope budgets, reports and net worth. Private, on your device, works offline.</p>
+        <ul class="cab__stats"><li>Budgets</li><li>Reports</li><li>Offline</li></ul>
+        <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ---- MODERNTOOLS · wide (2x1) ---- -->
+    <a class="cab cab--wide" data-accent="moderntools" data-kind="open" data-live="true" href="moderntools/" aria-label="ModernTools — a branded hub of field sales tools for the Modern Exteriors team">
+      <div class="cab__screen">
+        <svg class="emblem" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M24 25v-3a8 8 0 0 1 16 0v3" fill="none" stroke="var(--a)" stroke-width="4.5" stroke-linecap="round"/>
+          <rect x="12" y="25" width="40" height="25" rx="3" fill="var(--a)"/>
+          <rect x="14" y="33" width="36" height="2.6" rx="1.3" fill="#0b0b0b" opacity=".2"/>
+          <rect x="27" y="30" width="10" height="7" rx="1.5" fill="#fff"/>
+        </svg>
+        <span class="cab__glare"></span>
+      </div>
+      <div class="cab__plate">
+        <div class="cab__head">
+          <span class="cab__tag">Field&nbsp;tools&nbsp;· Web</span>
+          <span class="cab__status"><i class="led"></i><span class="cab__statustxt">Soon</span></span>
+        </div>
+        <h2 class="cab__title">ModernTools</h2>
+        <p class="cab__tagline">A branded hub of field sales tools for the Modern Exteriors team &mdash; financing calculator, quote &amp; note templates, a roof visualizer and more.</p>
+        <ul class="cab__stats"><li>Financing</li><li>Templates</li><li>Quotes</li></ul>
         <span class="cab__cta"><span class="cab__ctatxt">Coming&nbsp;soon</span><svg class="cab__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
     </a>
@@ -235,7 +280,7 @@
     <span class="foot__mark" aria-hidden="true">
       <svg viewBox="0 0 64 64" width="22" height="22"><path d="M45 21a18 18 0 1 0 0 22" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/></svg>
     </span>
-    <p class="foot__txt">Built by Connor Corkum. New cabinets get wired in one at a time &mdash; check back as the arcade fills up.</p>
+    <p class="foot__txt">Built by Connor Corkum. New panels get added one at a time &mdash; check back as the collection grows.</p>
   </footer>
 
 </main>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Exteriors — Cost vs. Value</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --indigo: #4a3c8c;
+    --indigo-deep: #342d6b;
+    --indigo-bright: #5a4ba6;
+    --copper: #c4895a;
+    --copper-dark: #a96f3f;
+
+    --bg: #f3f1f9;
+    --card: #ffffff;
+    --ink: #21243d;
+    --muted: #6b6a86;
+    --line: #e7e4f1;
+    --chip: #f6f4fc;
+    --footer-navy: #12213a;
+    --footer-ink: #e7ecf5;
+    --footer-muted: #9fb0c8;
+    --header-from: #4e4199;
+    --header-to: #342d6b;
+    --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+      --line: #2b2f52; --chip: #171b34;
+      --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+      --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f3f1f9; --card: #ffffff; --ink: #21243d; --muted: #6b6a86;
+    --line: #e7e4f1; --chip: #f6f4fc;
+    --footer-navy: #12213a; --footer-ink: #e7ecf5; --footer-muted: #9fb0c8;
+    --header-from: #4e4199; --header-to: #342d6b; --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+    --line: #2b2f52; --chip: #171b34;
+    --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+    --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.4;
+    overflow-x: hidden; text-size-adjust: 100%; -webkit-text-size-adjust: 100%;
+    min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column;
+  }
+  .serif { font-family: Georgia, "Times New Roman", "Iowan Old Style", serif; }
+  .wrap { max-width: 820px; width: 100%; margin: 0 auto; padding: 0 18px 44px; flex: 1 0 auto; }
+  header.brand, footer.brandfoot { flex-shrink: 0; }
+
+  header.brand {
+    background: linear-gradient(160deg, var(--header-from) 0%, var(--header-to) 100%);
+    color: #fff; padding: 30px 18px 30px; text-align: center;
+  }
+  .brand-inner {
+    max-width: 820px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .home-link {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+    background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 8px 13px; border-radius: 999px; transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .home-link:hover { background: rgba(255, 255, 255, 0.22); }
+  .home-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .logo { position: relative; display: inline-block; padding-top: 14px; text-decoration: none; }
+  .logo:hover { opacity: 0.92; }
+  .logo .roofline { position: absolute; top: 0; left: -4px; width: clamp(96px, 30vw, 116px); height: 26px; overflow: visible; }
+  .logo .word {
+    display: flex; flex-direction: column; align-items: flex-start;
+    line-height: 0.94; letter-spacing: -0.005em;
+    font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 800; color: #fff;
+  }
+  .logo .word .l1, .logo .word .l2 { font-size: clamp(26px, 8vw, 34px); }
+  header.brand h1 { margin: 0; font-size: clamp(16px, 4.6vw, 20px); font-weight: 400; font-style: italic; color: var(--header-sub); }
+  .brand-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--header-sub); opacity: 0.9;
+  }
+
+  .lede {
+    margin: 26px 0 4px; font-size: clamp(15px, 2.4vw, 17px); color: var(--ink); line-height: 1.55;
+  }
+  .lede strong { color: var(--copper-dark); }
+  .region-tag {
+    display: inline-block; margin-top: 14px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--indigo-bright);
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px;
+    margin-top: 12px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-sm); padding: 18px 18px 16px;
+  }
+  .stat .proj { font-size: 14px; font-weight: 800; color: var(--ink); line-height: 1.25; }
+  .stat .desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 5px; }
+  .stat .price {
+    font-size: clamp(30px, 9vw, 42px); font-weight: 800; color: var(--copper-dark);
+    line-height: 1.05; font-variant-numeric: tabular-nums; margin-top: 8px;
+  }
+  .stat .price-cap {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--muted); margin-top: 3px;
+  }
+  .stat .recoup { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 10px; }
+  .stat .recoup b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat .scope {
+    font-size: 11.5px; color: var(--muted); line-height: 1.45;
+    margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line);
+  }
+
+  .cta-wrap { margin-top: 24px; text-align: center; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.02em;
+    background: var(--copper); color: #fff; text-decoration: none;
+    padding: 14px 24px; border-radius: 12px; min-height: 50px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .cta:hover { background: var(--copper-dark); }
+  .cta:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+
+  .more {
+    margin-top: 26px; background: var(--chip); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px; font-size: 13.5px; color: var(--muted); line-height: 1.6;
+  }
+  .more h2 {
+    margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  .credit {
+    margin-top: 22px; font-size: 11.5px; line-height: 1.65; color: var(--muted);
+    text-align: center; padding: 0 6px; opacity: 0.95;
+  }
+  .credit a { color: var(--indigo-bright); font-weight: 600; }
+
+  footer.brandfoot {
+    background: var(--footer-navy); color: var(--footer-muted);
+    padding: 22px 18px; margin-top: 30px; text-align: center;
+    font-size: 13px; letter-spacing: 0.02em;
+  }
+  footer.brandfoot a { color: var(--footer-ink); font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* Back-to-top button (fixed, appears after scrolling) */
+  .to-top {
+    position: fixed; z-index: 50;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--copper); color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    display: grid; place-items: center;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .to-top.show { opacity: 0.9; visibility: visible; transform: translateY(0); }
+  .to-top:hover { opacity: 1; background: var(--copper-dark); }
+  .to-top:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .to-top svg { width: 22px; height: 22px; }
+  @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+  @media print { .to-top { display: none !important; } }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="brand-inner">
+    <a class="home-link" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>
+      </svg>
+      Home
+    </a>
+    <a class="logo" href="index.html" aria-label="Modern Exteriors home">
+      <svg class="roofline" viewBox="0 0 116 26" fill="none" aria-hidden="true">
+        <path d="M2 24 L2 20 L40 2 L74 20" stroke="#ffffff" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="word"><span class="l1">Modern</span><span class="l2">Exteriors</span></span>
+    </a>
+    <div class="brand-eyebrow">Resale Value &middot; Mid-Atlantic</div>
+    <h1 class="serif">Cost vs. Value</h1>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="lede">
+    See what popular projects cost — and how much a homeowner gets back at resale — across our
+    region. A simple way to show that a <strong>Modern Exteriors</strong> project protects their
+    home <em>and</em> its value.
+  </p>
+  <span class="region-tag">2025 &middot; Middle Atlantic region</span>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="proj">Asphalt Shingle Roof Replacement</div>
+      <div class="desc">A full tear-off and new asphalt shingle roof over fresh underlayment — priced for a 30-square roof with felt paper and three-tab shingles.</div>
+      <div class="price">$37,201</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$21,680</b> &middot; <b>58.3%</b> recouped</div>
+    </div>
+    <div class="stat">
+      <div class="proj">Garage Door Replacement</div>
+      <div class="desc">Swap a dated door for a new insulated garage door — a big curb-appeal boost and one of the highest returns of any project.</div>
+      <div class="price">$4,501</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$15,152</b> &middot; <b>336.6%</b> recouped</div>
+    </div>
+    <div class="stat">
+      <div class="proj">Steel Entry Door Replacement</div>
+      <div class="desc">A durable, energy-efficient steel front door for a secure, sharp first impression.</div>
+      <div class="price">$2,684</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$5,900</b> &middot; <b>219.8%</b> recouped</div>
+    </div>
+    <div class="stat">
+      <div class="proj">Manufactured Stone Veneer</div>
+      <div class="desc">Lightweight stone veneer on the lower façade for a premium, high-end exterior accent.</div>
+      <div class="price">$13,251</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$26,598</b> &middot; <b>200.7%</b> recouped</div>
+    </div>
+    <div class="stat">
+      <div class="proj">Minor Kitchen Remodel</div>
+      <div class="desc">A midrange refresh — new cabinet fronts, hardware, counters, and fixtures without a full gut.</div>
+      <div class="price">$31,212</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$33,456</b> &middot; <b>107.2%</b> recouped</div>
+    </div>
+    <div class="stat">
+      <div class="proj">Fiber-Cement Siding Replacement</div>
+      <div class="desc">Low-maintenance, weather-tough fiber-cement siding for a clean, long-lasting exterior.</div>
+      <div class="price">$25,666</div>
+      <div class="price-cap">Average project cost</div>
+      <div class="recoup">Resale value <b>$25,475</b> &middot; <b>99.3%</b> recouped</div>
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <a class="cta" href="https://www.jlconline.com/cost-vs-value/2025/middle-atlantic/" target="_blank" rel="noopener noreferrer">
+      View the full 2025 report
+      <span aria-hidden="true">&#8599;</span>
+    </a>
+  </div>
+
+  <div class="more">
+    <h2>What's in the full report</h2>
+    The complete 2025 Cost vs. Value Report compares average cost and resale value for 28 remodeling
+    projects — including roofing (asphalt shingle &amp; metal), siding, windows, and more — across 119
+    U.S. markets. For exact costs, resale values, and figures for a specific market, open the full report above.
+  </div>
+
+  <p class="credit">
+    Figures shown are illustrative ROI highlights for the Middle Atlantic region, drawn from the
+    <a href="https://www.jlconline.com/cost-vs-value/2025/middle-atlantic/" target="_blank" rel="noopener noreferrer">2025 Cost vs. Value Report</a>,
+    &copy; Zonda Media / Journal of Light Construction (JLC). Percentages are regional/market averages and vary by
+    location and project scope. Modern Exteriors is not affiliated with, or endorsed by, Zonda or JLC. Refer to the
+    full report for complete, current, and market-specific data.
+  </p>
+</div>
+
+<footer class="brandfoot">
+  Modern Exteriors &middot; Field Tools &middot; <a href="tel:+18555566337">(855)&nbsp;556-6337</a>
+</footer>
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+<script>
+  (function () {
+    var b = document.querySelector(".to-top");
+    if (!b) return;
+    var t = function () { if (window.pageYOffset > 300) b.classList.add("show"); else b.classList.remove("show"); };
+    window.addEventListener("scroll", t, { passive: true });
+    t();
+    b.addEventListener("click", function () {
+      var r = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: r ? "auto" : "smooth" });
+    });
+  })();
+</script>
+</body>
+</html>

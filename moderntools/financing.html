@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Exteriors — Financing Calculator</title>
+<style>
+  :root {
+    color-scheme: light dark;
+
+    /* ---- Brand core (constant across themes) ---- */
+    --indigo: #4a3c8c;
+    --indigo-deep: #342d6b;
+    --indigo-bright: #5a4ba6;
+    --copper: #c4895a;
+    --copper-dark: #a96f3f;
+
+    /* ---- Themed tokens (light defaults) ---- */
+    --bg: #f3f1f9;
+    --card: #ffffff;
+    --ink: #21243d;
+    --muted: #6b6a86;
+    --line: #e7e4f1;
+    --chip: #f6f4fc;
+    --chip-hover: #ede9f8;
+    --input-bg: #ffffff;
+    --copper-soft: #f6ebe1;
+    --footer-navy: #12213a;
+    --footer-ink: #e7ecf5;
+    --footer-muted: #9fb0c8;
+    --header-from: #4e4199;
+    --header-to: #342d6b;
+    --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+    --featured-shadow: 0 12px 28px rgba(196, 137, 90, 0.22);
+    --radius: 16px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1326;
+      --card: #191d38;
+      --ink: #ecebf6;
+      --muted: #a6a3c6;
+      --line: #2b2f52;
+      --chip: #171b34;
+      --chip-hover: #232746;
+      --input-bg: #141834;
+      --copper-soft: #3a2a1c;
+      --footer-navy: #0b1626;
+      --footer-ink: #e7ecf5;
+      --footer-muted: #93a4bd;
+      --header-from: #453a86;
+      --header-to: #2a2456;
+      --header-sub: #c3bce4;
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+      --featured-shadow: 0 12px 28px rgba(196, 137, 90, 0.16);
+    }
+  }
+
+  /* Explicit toggle overrides the media query in both directions */
+  :root[data-theme="light"] {
+    --bg: #f3f1f9; --card: #ffffff; --ink: #21243d; --muted: #6b6a86;
+    --line: #e7e4f1; --chip: #f6f4fc; --chip-hover: #ede9f8; --input-bg: #ffffff;
+    --copper-soft: #f6ebe1; --footer-navy: #12213a; --footer-ink: #e7ecf5; --footer-muted: #9fb0c8;
+    --header-from: #4e4199; --header-to: #342d6b; --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+    --featured-shadow: 0 12px 28px rgba(196, 137, 90, 0.22);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+    --line: #2b2f52; --chip: #171b34; --chip-hover: #232746; --input-bg: #141834;
+    --copper-soft: #3a2a1c; --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+    --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --featured-shadow: 0 12px 28px rgba(196, 137, 90, 0.16);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+    overflow-x: hidden;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .serif { font-family: Georgia, "Times New Roman", "Iowan Old Style", serif; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .wrap { max-width: 760px; width: 100%; margin: 0 auto; padding: 0 18px 44px; flex: 1 0 auto; }
+  header.brand, footer.trust { flex-shrink: 0; }
+
+  /* ---------- Header / brand ---------- */
+  header.brand {
+    background: linear-gradient(160deg, var(--header-from) 0%, var(--header-to) 100%);
+    color: #fff;
+    padding: 30px 18px 30px;
+    text-align: center;
+  }
+  .brand-inner {
+    max-width: 760px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+
+  /* Reproduced roofline wordmark */
+  .logo { position: relative; display: inline-block; padding-top: 14px; text-decoration: none; }
+  .logo:hover { opacity: 0.92; }
+  .logo .roofline {
+    position: absolute; top: 0; left: -4px;
+    width: clamp(96px, 30vw, 116px); height: 26px; overflow: visible;
+  }
+  .logo .word {
+    display: flex; flex-direction: column; align-items: flex-start;
+    line-height: 0.94; letter-spacing: -0.005em;
+    font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 800; color: #fff;
+  }
+  .logo .word .l1 { font-size: clamp(26px, 8vw, 34px); }
+  .logo .word .l2 { font-size: clamp(26px, 8vw, 34px); }
+  header.brand h1 {
+    margin: 0; font-size: clamp(16px, 4.6vw, 19px); font-weight: 400; font-style: italic;
+    color: var(--header-sub); letter-spacing: 0.01em;
+  }
+  .brand-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--header-sub); opacity: 0.9;
+  }
+  .home-link {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 8px 13px; border-radius: 999px;
+    transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .home-link:hover { background: rgba(255, 255, 255, 0.22); }
+  .home-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  /* ---------- Estimate input ---------- */
+  .panel {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); margin-top: 22px; padding: 22px 22px 24px;
+    border: 1px solid var(--line);
+  }
+  .panel label {
+    display: block; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .input-row {
+    display: flex; align-items: center;
+    border: 2px solid var(--line); border-radius: 12px;
+    padding: 6px 16px; background: var(--input-bg);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input-row:focus-within {
+    border-color: var(--indigo-bright);
+    box-shadow: 0 0 0 4px rgba(90, 75, 166, 0.20);
+  }
+  .input-row .dollar { font-size: clamp(23px, 7vw, 30px); font-weight: 700; color: var(--ink); margin-right: 4px; }
+  #estimate {
+    border: none; outline: none;
+    font-size: clamp(23px, 7vw, 30px); font-weight: 700; color: var(--ink);
+    width: 100%; padding: 8px 0; background: transparent; font-family: inherit;
+  }
+  #estimate::placeholder { color: var(--muted); opacity: 0.5; }
+  .hint { margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .quick button {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--chip);
+    color: var(--ink); font-weight: 600; font-size: 14px;
+    padding: 10px 15px; min-height: 44px; border-radius: 999px; cursor: pointer;
+    font-family: inherit; transition: background 0.12s, border-color 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .quick button:hover, .quick button:active { background: var(--chip-hover); border-color: var(--indigo-bright); }
+
+  /* ---------- Plans ---------- */
+  .section-title {
+    margin: 26px 4px 12px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+  }
+  .plan {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow-sm); border: 1px solid var(--line);
+    padding: 20px 22px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  }
+  .plan.featured { border: 2px solid var(--copper); box-shadow: var(--featured-shadow); }
+  .plan .left { min-width: 0; }
+  .plan .badge {
+    display: inline-block; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--copper-dark); background: var(--copper-soft);
+    border-radius: 999px; padding: 3px 10px; margin-bottom: 8px;
+  }
+  .plan .name { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1.2; overflow-wrap: break-word; }
+  .plan .terms { font-size: 13.5px; color: var(--muted); margin-top: 5px; }
+  .plan .right { text-align: right; flex: none; }
+  .plan .pay { font-size: clamp(22px, 6.5vw, 30px); font-weight: 800; color: var(--ink); line-height: 1; white-space: nowrap; }
+  .plan .pay .per { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .plan .pay.special { font-size: clamp(17px, 5vw, 20px); color: var(--copper-dark); }
+  .plan .subnote { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  .empty { text-align: center; color: var(--muted); font-size: 14px; padding: 30px 10px 10px; }
+
+  /* ---------- Actions & disclaimer ---------- */
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; justify-content: center; }
+  .actions button {
+    font-family: inherit; font-weight: 700; font-size: 14.5px;
+    border-radius: 10px; padding: 13px 22px; min-height: 48px; cursor: pointer; border: none;
+    letter-spacing: 0.02em;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .actions button:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .btn-print { background: var(--copper); color: #fff; }
+  .btn-print:hover { background: var(--copper-dark); }
+  .btn-clear { background: var(--chip); color: var(--ink); border: 1px solid var(--line); }
+  .btn-clear:hover { background: var(--chip-hover); }
+
+  .disclaimer {
+    margin-top: 22px; font-size: 11.5px; line-height: 1.6;
+    color: var(--muted); text-align: center; padding: 0 6px; opacity: 0.9;
+  }
+
+  /* Plan codes — small reference note */
+  .codes {
+    margin-top: 18px; padding: 0 8px; text-align: center;
+    font-size: 12px; line-height: 1.75; color: var(--muted);
+  }
+  .codes .lbl {
+    display: block; margin-bottom: 3px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  }
+  .codes .code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-weight: 700; color: var(--ink);
+  }
+
+  /* ---------- Trust footer (full-bleed) ---------- */
+  footer.trust {
+    background: linear-gradient(180deg, var(--footer-navy) 0%, var(--footer-navy) 100%);
+    color: var(--footer-ink); padding: 26px 18px 30px; margin-top: 30px;
+  }
+  .trust-inner {
+    max-width: 760px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 26px;
+  }
+  .trust-item {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13.5px; font-weight: 600; letter-spacing: 0.01em;
+  }
+  .trust-item svg { width: 19px; height: 19px; flex: none; color: var(--copper); }
+  .trust-phone {
+    max-width: 760px; margin: 16px auto 0; text-align: center;
+    font-size: 13px; color: var(--footer-muted); letter-spacing: 0.02em;
+  }
+  .trust-phone a { color: var(--footer-ink); font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 520px) {
+    .plan { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .plan .right { text-align: left; }
+    .actions button { flex: 1 1 140px; }
+    .trust-inner { flex-direction: column; align-items: flex-start; gap: 12px; max-width: 320px; }
+  }
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px 40px; }
+    .plan .name { font-size: 16.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  @media print {
+    body { background: #fff; }
+    .quick, .actions, .hint { display: none !important; }
+    .panel, .plan { box-shadow: none; break-inside: avoid; }
+    header.brand, footer.trust { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* Back-to-top button (fixed, appears after scrolling) */
+  .to-top {
+    position: fixed; z-index: 50;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--copper); color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    display: grid; place-items: center;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .to-top.show { opacity: 0.9; visibility: visible; transform: translateY(0); }
+  .to-top:hover { opacity: 1; background: var(--copper-dark); }
+  .to-top:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .to-top svg { width: 22px; height: 22px; }
+  @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+  @media print { .to-top { display: none !important; } }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="brand-inner">
+    <a class="home-link" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>
+      </svg>
+      Home
+    </a>
+    <a class="logo" href="index.html" aria-label="Modern Exteriors home">
+      <svg class="roofline" viewBox="0 0 116 26" fill="none" aria-hidden="true">
+        <path d="M2 24 L2 20 L40 2 L74 20" stroke="#ffffff" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="word">
+        <span class="l1">Modern</span>
+        <span class="l2">Exteriors</span>
+      </span>
+    </a>
+    <div class="brand-eyebrow">Licensed &amp; Insured &middot; DE &middot; PA &middot; NJ &middot; MD &middot; VA</div>
+    <h1 class="serif">Financing Estimate Calculator</h1>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <label for="estimate">Total Estimate Amount</label>
+    <div class="input-row">
+      <span class="dollar">$</span>
+      <input id="estimate" class="num" type="text" inputmode="decimal" autocomplete="off"
+             placeholder="0" aria-label="Total estimate amount in dollars" />
+    </div>
+    <div class="quick">
+      <button type="button" data-amt="10000">$10,000</button>
+      <button type="button" data-amt="15000">$15,000</button>
+      <button type="button" data-amt="20000">$20,000</button>
+      <button type="button" data-amt="30000">$30,000</button>
+      <button type="button" data-amt="50000">$50,000</button>
+    </div>
+    <p class="hint">Enter the total project estimate to see monthly payment options.</p>
+  </div>
+
+  <div class="section-title">Payment Options</div>
+  <div id="plans"><div class="empty">Enter an estimate amount above to view financing plans.</div></div>
+
+  <div class="actions">
+    <button type="button" class="btn-print" onclick="window.print()">Print / Save PDF</button>
+    <button type="button" class="btn-clear" id="clearBtn">Clear</button>
+  </div>
+
+  <p class="disclaimer">
+    Estimated monthly payments are for illustration only and assume financing of the full
+    estimate amount. Actual rates, terms, promotional offers, and approval are subject to
+    lender credit review and may vary. Modern Exteriors is not a lender. This is not a
+    commitment to lend or a credit offer.
+  </p>
+
+  <div class="codes">
+    <span class="lbl">Plan Codes</span>
+    <div>1st &middot; Code <span class="code">4132</span> &mdash; 9.99%, 120 months (0.0132)</div>
+    <div>2nd &middot; Code <span class="code">4107</span> &mdash; 9.99%, 180 months (0.0107)</div>
+    <div>3rd &middot; Code <span class="code">2012</span> &mdash; No Interest / No Payment</div>
+    <div>4th &middot; Code <span class="code">4089</span> &mdash; 6.99%, 180 months (0.0089)</div>
+  </div>
+</div>
+
+<footer class="trust">
+  <div class="trust-inner">
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 21h8M12 17v4M6 4h12v4a6 6 0 0 1-12 0V4z"/>
+        <path d="M6 6H3v1a4 4 0 0 0 4 4M18 6h3v1a4 4 0 0 1-4 4"/>
+      </svg>
+      GAF Master Elite Certified
+    </span>
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.9 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/>
+      </svg>
+      Over 250 Five-Star Reviews
+    </span>
+    <span class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l8 3v6c0 5-3.4 8.6-8 11-4.6-2.4-8-6-8-11V5z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+      Licensed &amp; Insured
+    </span>
+  </div>
+  <div class="trust-phone">Questions about financing? Call <a href="tel:+18555566337">(855)&nbsp;556-6337</a></div>
+</footer>
+
+<script>
+  // Financing plans, top-down, in the requested order.
+  var PLANS = [
+    { name: "9.99% APR", apr: 9.99, months: 120 },
+    { name: "9.99% APR", apr: 9.99, months: 180 },
+    { name: "6.99% APR", apr: 6.99, months: 180, featured: true },
+    { name: "12 Months No Interest, No Payments", deferred: true, promoMonths: 12, note: "Depends on Credit" }
+  ];
+
+  var money0 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  var money2 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  // Standard amortized monthly payment.
+  function monthlyPayment(principal, aprPercent, months) {
+    var r = (aprPercent / 100) / 12;
+    if (r === 0) return principal / months;
+    return principal * r / (1 - Math.pow(1 + r, -months));
+  }
+
+  var estimateEl = document.getElementById("estimate");
+  var plansEl = document.getElementById("plans");
+
+  function parseAmount(str) {
+    var n = parseFloat(String(str).replace(/[^0-9.]/g, ""));
+    return isNaN(n) ? 0 : n;
+  }
+
+  function render() {
+    var amount = parseAmount(estimateEl.value);
+    if (amount <= 0) {
+      plansEl.innerHTML = '<div class="empty">Enter an estimate amount above to view financing plans.</div>';
+      return;
+    }
+    var html = "";
+    PLANS.forEach(function (p) {
+      var featured = p.featured ? " featured" : "";
+      var badge = p.featured ? '<span class="badge">Lowest Rate</span>' : "";
+      var right, terms;
+      if (p.deferred) {
+        right =
+          '<div class="pay special">' + p.note + '</div>' +
+          '<div class="subnote">No payments &amp; no interest for ' + p.promoMonths + ' months, if paid in full</div>';
+        terms = "Deferred interest promotion";
+      } else {
+        var pay = monthlyPayment(amount, p.apr, p.months);
+        var total = pay * p.months;
+        right =
+          '<div class="pay num">' + money2.format(pay) + '<span class="per"> /mo</span></div>' +
+          '<div class="subnote num">' + p.months + ' payments &middot; ' + money0.format(total) + ' total</div>';
+        terms = p.months + " months (" + (p.months / 12) + " yrs) &middot; " + p.apr + "% APR";
+      }
+      html +=
+        '<div class="plan' + featured + '">' +
+          '<div class="left">' + badge +
+            '<div class="name">' + p.name + '</div>' +
+            '<div class="terms">' + terms + '</div>' +
+          '</div>' +
+          '<div class="right">' + right + '</div>' +
+        '</div>';
+    });
+    plansEl.innerHTML = html;
+  }
+
+  function formatInput() {
+    var raw = estimateEl.value.replace(/[^0-9.]/g, "");
+    var parts = raw.split(".");
+    var intPart = parts[0] || "";
+    var dec = parts.length > 1 ? "." + parts[1].slice(0, 2) : "";
+    if (intPart) intPart = parseInt(intPart, 10).toLocaleString("en-US");
+    estimateEl.value = intPart + dec;
+  }
+
+  estimateEl.addEventListener("input", function () { formatInput(); render(); });
+
+  document.querySelectorAll(".quick button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      estimateEl.value = parseInt(b.dataset.amt, 10).toLocaleString("en-US");
+      render();
+      estimateEl.focus();
+    });
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    estimateEl.value = "";
+    render();
+    estimateEl.focus();
+  });
+
+  render();
+</script>
+
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+<script>
+  (function () {
+    var b = document.querySelector(".to-top");
+    if (!b) return;
+    var t = function () { if (window.pageYOffset > 300) b.classList.add("show"); else b.classList.remove("show"); };
+    window.addEventListener("scroll", t, { passive: true });
+    t();
+    b.addEventListener("click", function () {
+      var r = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: r ? "auto" : "smooth" });
+    });
+  })();
+</script>
+</body>
+</html>

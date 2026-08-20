@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Exteriors — Templates</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --indigo: #4a3c8c;
+    --indigo-deep: #342d6b;
+    --indigo-bright: #5a4ba6;
+    --copper: #c4895a;
+    --copper-dark: #a96f3f;
+
+    --bg: #f3f1f9;
+    --card: #ffffff;
+    --ink: #21243d;
+    --muted: #6b6a86;
+    --line: #e7e4f1;
+    --chip: #f6f4fc;
+    --chip-hover: #ede9f8;
+    --input-bg: #ffffff;
+    --footer-navy: #12213a;
+    --footer-ink: #e7ecf5;
+    --footer-muted: #9fb0c8;
+    --header-from: #4e4199;
+    --header-to: #342d6b;
+    --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+      --line: #2b2f52; --chip: #171b34; --chip-hover: #232746; --input-bg: #141834;
+      --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+      --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f3f1f9; --card: #ffffff; --ink: #21243d; --muted: #6b6a86;
+    --line: #e7e4f1; --chip: #f6f4fc; --chip-hover: #ede9f8; --input-bg: #ffffff;
+    --footer-navy: #12213a; --footer-ink: #e7ecf5; --footer-muted: #9fb0c8;
+    --header-from: #4e4199; --header-to: #342d6b; --header-sub: #d3ccec;
+    --shadow: 0 12px 32px rgba(52, 45, 107, 0.12);
+    --shadow-sm: 0 2px 8px rgba(52, 45, 107, 0.08);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1326; --card: #191d38; --ink: #ecebf6; --muted: #a6a3c6;
+    --line: #2b2f52; --chip: #171b34; --chip-hover: #232746; --input-bg: #141834;
+    --footer-navy: #0b1626; --footer-ink: #e7ecf5; --footer-muted: #93a4bd;
+    --header-from: #453a86; --header-to: #2a2456; --header-sub: #c3bce4;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.4;
+    overflow-x: hidden; text-size-adjust: 100%; -webkit-text-size-adjust: 100%;
+    min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column;
+  }
+  .serif { font-family: Georgia, "Times New Roman", "Iowan Old Style", serif; }
+  .wrap { max-width: 760px; width: 100%; margin: 0 auto; padding: 0 18px 44px; flex: 1 0 auto; }
+  header.brand, footer.brandfoot { flex-shrink: 0; }
+
+  header.brand {
+    background: linear-gradient(160deg, var(--header-from) 0%, var(--header-to) 100%);
+    color: #fff; padding: 30px 18px 30px; text-align: center;
+  }
+  .brand-inner {
+    max-width: 760px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .home-link {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+    background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 8px 13px; border-radius: 999px; transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .home-link:hover { background: rgba(255, 255, 255, 0.22); }
+  .home-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .logo { position: relative; display: inline-block; padding-top: 14px; text-decoration: none; }
+  .logo:hover { opacity: 0.92; }
+  .logo .roofline { position: absolute; top: 0; left: -4px; width: clamp(96px, 30vw, 116px); height: 26px; overflow: visible; }
+  .logo .word {
+    display: flex; flex-direction: column; align-items: flex-start;
+    line-height: 0.94; letter-spacing: -0.005em;
+    font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 800; color: #fff;
+  }
+  .logo .word .l1, .logo .word .l2 { font-size: clamp(26px, 8vw, 34px); }
+  header.brand h1 { margin: 0; font-size: clamp(16px, 4.6vw, 20px); font-weight: 400; font-style: italic; color: var(--header-sub); }
+  .brand-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--header-sub); opacity: 0.9;
+  }
+
+  .tpl-name {
+    margin: 26px 2px 6px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .tpl-hint { margin: 0 2px 4px; font-size: 12.5px; color: var(--muted); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow-sm); padding: 18px; margin-top: 16px;
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .card-head .name { font-size: 16px; font-weight: 800; color: var(--ink); }
+
+  .tmpl {
+    width: 100%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px; line-height: 1.6; color: var(--ink);
+    background: var(--input-bg); border: 1px solid var(--line); border-radius: 12px;
+    padding: 15px; resize: vertical; outline: none;
+    white-space: pre-wrap; overflow-wrap: break-word;
+  }
+  .tmpl:focus { border-color: var(--indigo-bright); box-shadow: 0 0 0 3px rgba(90, 75, 166, 0.15); }
+
+  .btn {
+    font-family: inherit; font-weight: 700; font-size: 13.5px; letter-spacing: 0.02em;
+    border-radius: 10px; padding: 9px 16px; min-height: 42px; cursor: pointer; border: none;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .btn:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .btn-copy { background: var(--copper); color: #fff; }
+  .btn-copy:hover { background: var(--copper-dark); }
+  .btn-copy.done { background: #1f9d55; }
+  .btn-ghost { background: var(--chip); color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { background: var(--chip-hover); }
+  .actions-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+
+  footer.brandfoot {
+    background: var(--footer-navy); color: var(--footer-muted);
+    padding: 22px 18px; margin-top: 34px; text-align: center;
+    font-size: 13px; letter-spacing: 0.02em;
+  }
+  footer.brandfoot a { color: var(--footer-ink); font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px 40px; }
+    .tmpl { font-size: 13px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media print {
+    body { background: #fff; }
+    header.brand, .actions-row, .card-head, footer.brandfoot, .tpl-hint { display: none !important; }
+    .card { box-shadow: none; border: none; padding: 0 0 14px; break-inside: avoid; }
+    .tmpl { border: none; background: #fff; }
+  }
+
+  /* Back-to-top button (fixed, appears after scrolling) */
+  .to-top {
+    position: fixed; z-index: 50;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--copper); color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    display: grid; place-items: center;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.12s;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .to-top.show { opacity: 0.9; visibility: visible; transform: translateY(0); }
+  .to-top:hover { opacity: 1; background: var(--copper-dark); }
+  .to-top:focus-visible { outline: 3px solid var(--indigo-bright); outline-offset: 2px; }
+  .to-top svg { width: 22px; height: 22px; }
+  @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+  @media print { .to-top { display: none !important; } }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="brand-inner">
+    <a class="home-link" href="index.html">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>
+      </svg>
+      Home
+    </a>
+    <a class="logo" href="index.html" aria-label="Modern Exteriors home">
+      <svg class="roofline" viewBox="0 0 116 26" fill="none" aria-hidden="true">
+        <path d="M2 24 L2 20 L40 2 L74 20" stroke="#ffffff" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="word"><span class="l1">Modern</span><span class="l2">Exteriors</span></span>
+    </a>
+    <div class="brand-eyebrow">Sales Templates</div>
+    <h1 class="serif">Templates</h1>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tpl-name">Call Pilot</div>
+  <p class="tpl-hint">Each section copies on its own — Call Pilot, Install Notes, and Sales Notes are separate.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="name">Call Pilot</span>
+      <button type="button" class="btn btn-copy" data-copy>Copy</button>
+    </div>
+    <textarea class="tmpl" rows="16" spellcheck="false" aria-label="Call Pilot section">Call Pilot:
+Customer Name:
+Customer Email:
+Total:
+Monthly:
+Down:
+Balance:
+Finance:
+Term:
+Interest Rate:
+Install Date:
+Home Type:
+Shingle Color:
+Shadow Rep: N/A
+Hoa:
+To: </textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="name">Install Notes</span>
+      <button type="button" class="btn btn-copy" data-copy>Copy</button>
+    </div>
+    <textarea class="tmpl" rows="21" spellcheck="false" aria-label="Install Notes section">Install Notes
+
+Package: (premium/gold)
+
+Solar Panels: (#/no)
+
+Skylights: (#/no)
+
+Decking Needed: (# of sheets and location)
+
+Additional Structure Details: (no/location)
+
+Flat Roof Details: (no/flat roof square count)
+
+Sections omitted from estimate: (no/yes and location)
+
+# of stories and house type:
+
+Satellite Dish or other equipment removed from roof: (no/yes with details)
+
+Additional Details: (landscaping, fences, no driveway, etc)</textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="name">Sales Notes</span>
+      <button type="button" class="btn btn-copy" data-copy>Copy</button>
+    </div>
+    <textarea class="tmpl" rows="11" spellcheck="false" aria-label="Sales Notes section">Sales Notes
+
+Decision Maker Name:
+
+Financier:
+
+Finance Details:
+
+Total:
+
+Other Customer Details: </textarea>
+  </div>
+
+  <div class="actions-row">
+    <button type="button" class="btn btn-ghost" onclick="window.print()">Print / Save PDF</button>
+    <button type="button" class="btn btn-ghost" id="resetBtn">Reset template</button>
+  </div>
+</div>
+
+<footer class="brandfoot">
+  Modern Exteriors &middot; Field Tools &middot; <a href="tel:+18555566337">(855)&nbsp;556-6337</a>
+</footer>
+
+<script>
+  function copyFrom(ta, btn) {
+    function done() {
+      btn.textContent = "Copied ✓"; btn.classList.add("done");
+      setTimeout(function () { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1600);
+    }
+    function fallback() {
+      ta.focus(); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ta.value).then(done, fallback);
+    } else { fallback(); }
+  }
+
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      copyFrom(btn.closest(".card").querySelector(".tmpl"), btn);
+    });
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    document.querySelectorAll(".tmpl").forEach(function (ta) { ta.value = ta.defaultValue; });
+  });
+</script>
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+<script>
+  (function () {
+    var b = document.querySelector(".to-top");
+    if (!b) return;
+    var t = function () { if (window.pageYOffset > 300) b.classList.add("show"); else b.classList.remove("show"); };
+    window.addEventListener("scroll", t, { passive: true });
+    t();
+    b.addEventListener("click", function () {
+      var r = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: r ? "auto" : "smooth" });
+    });
+  })();
+</script>
+</body>
+</html>

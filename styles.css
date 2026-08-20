@@ -152,16 +152,19 @@ a { color: inherit; text-decoration: none; }
   grid-auto-rows: minmax(168px, auto);
   gap: var(--gutter);
   grid-template-areas:
-    "awe awe met met"
-    "awe awe mttd cnt"
-    "day day hub  cnt";
+    "awe  awe  met met"
+    "awe  awe  day day"
+    "mod  mod  led cnt"
+    "mttd mttd hub hub";
 }
 .cab--hero { grid-area: awe; }
-.cab--wide[data-accent="metanoia"]  { grid-area: met; }
-.cab[data-accent="mttd"]            { grid-area: mttd; }
-.cab--tall                          { grid-area: cnt; }
-.cab--wide[data-accent="daytrader"] { grid-area: day; }
-.cab[data-accent="homehub"]         { grid-area: hub; }
+.cab[data-accent="metanoia"]    { grid-area: met; }
+.cab[data-accent="daytrader"]   { grid-area: day; }
+.cab[data-accent="moderntools"] { grid-area: mod; }
+.cab[data-accent="mttd"]        { grid-area: mttd; }
+.cab[data-accent="ledger"]      { grid-area: led; }
+.cab[data-accent="counter"]     { grid-area: cnt; }
+.cab[data-accent="homehub"]     { grid-area: hub; }
 
 /* per-project accents (pop versions) */
 .cab[data-accent="awecrap"]   { --a:#ff3344; }
@@ -170,6 +173,8 @@ a { color: inherit; text-decoration: none; }
 .cab[data-accent="counter"]   { --a:#ff4fa3; }
 .cab[data-accent="daytrader"] { --a:#26b3ff; }
 .cab[data-accent="homehub"]   { --a:#9a7bff; }
+.cab[data-accent="ledger"]    { --a:#5b6cff; }
+.cab[data-accent="moderntools"] { --a:#12b3a6; }
 
 /* =========================================================================
    PANEL
@@ -348,10 +353,12 @@ a { color: inherit; text-decoration: none; }
   .cab { animation: ink-in .55s var(--ease) both; opacity: 0; }
   .cab--hero            { animation-delay: .06s; }
   .cab[data-accent="metanoia"]  { animation-delay: .12s; }
-  .cab[data-accent="mttd"]      { animation-delay: .18s; }
-  .cab--tall            { animation-delay: .24s; }
-  .cab[data-accent="daytrader"] { animation-delay: .30s; }
-  .cab[data-accent="homehub"]   { animation-delay: .36s; }
+  .cab[data-accent="ledger"]    { animation-delay: .17s; }
+  .cab[data-accent="counter"]   { animation-delay: .22s; }
+  .cab[data-accent="mttd"]      { animation-delay: .27s; }
+  .cab[data-accent="daytrader"] { animation-delay: .32s; }
+  .cab[data-accent="moderntools"] { animation-delay: .35s; }
+  .cab[data-accent="homehub"]   { animation-delay: .37s; }
   .marquee__meta { animation: ink-in .5s var(--ease) .42s both; }
   .foot { animation: ink-in .5s var(--ease) .5s both; }
 }
@@ -367,15 +374,17 @@ a { color: inherit; text-decoration: none; }
     grid-auto-rows: minmax(150px, auto);
     grid-template-areas:
       "awe awe"
+      "awe awe"
       "met met"
-      "mttd cnt"
+      "led cnt"
       "day day"
-      "hub  cnt";
+      "mod mttd"
+      "hub hub";
   }
 }
 @media (max-width: 560px) {
-  .wall { grid-template-columns: 1fr; grid-template-areas: "awe" "met" "mttd" "cnt" "day" "hub"; }
-  .cab--tall .cab__screen, .cab--hero .cab__screen { aspect-ratio: 16 / 9; }
+  .wall { grid-template-columns: 1fr; grid-template-areas: "awe" "met" "day" "mod" "led" "cnt" "mttd" "hub"; }
+  .cab--hero .cab__screen { aspect-ratio: 16 / 9; }
 }
 
 @media (prefers-reduced-motion: reduce) {

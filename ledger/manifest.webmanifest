@@ -1,0 +1,15 @@
+{
+  "name": "Ledger — Budgeting",
+  "short_name": "Ledger",
+  "description": "A private, offline budgeting app. Your money data never leaves this device.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f1216",
+  "theme_color": "#0f1216",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

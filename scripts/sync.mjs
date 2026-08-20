@@ -31,7 +31,6 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, "..");        // .../HomePage
 const WORKSPACE = resolve(REPO, "..");   // .../Claude Code 1
 
-const GATE_TAG = '<script src="../gate.js"></script>';
 const AWECRAP_AUDIO_BASE =
   "https://github.com/CJCx3/HomePage/releases/download/awecrap-audio-v1/";
 
@@ -48,16 +47,22 @@ const HOMEHUB_SCRUB = [
 const PROJECTS = [
   { dest: "awecrap",     src: "AweCrap",
     copy: ["index.html", "css", "js", "assets", "AweCrapBossPics"],
-    transforms: ["gate", "awecrapAudio"] },
+    transforms: ["awecrapAudio"] },
   { dest: "metanoia",    src: "Game Test",
     copy: ["index.html", "styles.css", "src"],
-    transforms: ["gate"] },
+    transforms: [] },
   { dest: "the-counter", src: "Shopping List",
     copy: ["index.html", "app.js", "scan.js", "styles.css", "manifest.webmanifest", "sw.js", "lib", "vendor", "icons", "fonts"],
-    transforms: ["gate"] },
+    transforms: [] },
+  { dest: "ledger",      src: "Ledger",
+    copy: ["index.html", "styles.css", "js", "icons", "manifest.webmanifest", "sw.js"],
+    transforms: [] },
+  { dest: "moderntools", src: "ModernTools/ModernTools-main/ModernTools-main",
+    copy: ["index.html", "financing.html", "templates.html", "cost-value.html", "quotes.html", "images"],
+    transforms: [] },
   { dest: "home-hub",    src: "Home Hub",
     copy: ["index.html", "ambient.html", "css", "js"],
-    transforms: ["gate", "homehubScrub"] },
+    transforms: ["homehubScrub"] },
 ];
 
 /* ---- transforms ---- */
@@ -69,19 +74,6 @@ function eachHtml(dir, fn) {
   }
 }
 const transforms = {
-  // add the site password gate to every top-level page (source has none).
-  // Insert just inside <head> so it never sits before <!DOCTYPE> (which would
-  // trip quirks mode); pages with an implicit head get it prepended.
-  gate(dir) {
-    eachHtml(dir, (p) => {
-      let html = readFileSync(p, "utf8");
-      if (html.includes("gate.js")) return;
-      html = html.includes("<head>")
-        ? html.replace("<head>", "<head>\n  " + GATE_TAG)
-        : GATE_TAG + "\n" + html;
-      writeFileSync(p, html);
-    });
-  },
   // stream AweCrap's music from the GitHub Release instead of the 177MB folder
   awecrapAudio(dir) {
     const p = join(dir, "js", "config.js");

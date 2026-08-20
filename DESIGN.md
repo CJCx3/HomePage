@@ -22,8 +22,9 @@ Cream newsprint with Ben-Day halftone; everything outlined in comic ink (near-bl
 | `--pop-red` / `--pop-yellow` / `--pop-blue` | `#ff3b3b` / `#ffd23f` / `#2b7fff` | title, caption boxes, focus |
 
 Per-project accents (`--a`, set by `data-accent`): AweCrap `#ff3344`, Metanoia `#2ec46b`,
-MTTD `#ff9f1c`, The Counter `#ff4fa3`, DayTrader `#26b3ff`, Home Hub `#9a7bff`. A panel's
-screen tint, title fill and action button all derive from `--a`.
+MTTD `#ff9f1c`, The Counter `#ff4fa3`, DayTrader `#26b3ff`, Home Hub `#9a7bff`,
+Ledger `#5b6cff`, ModernTools `#12b3a6`. A panel's screen tint, title fill and action
+button all derive from `--a`.
 
 ## Type
 
@@ -54,12 +55,6 @@ button. Bento grid (4-col desktop → 2-col ≤860 → 1-col ≤560).
 Entrance is one authored moment: panels **ink in** (opacity + blur only — never transform or
 shadow, so the `:hover` pop stays free), staggered. All motion gated behind
 `prefers-reduced-motion: no-preference`; the page is fully legible static.
-
-## The gate
-
-`gate.js` (comic-styled: inked card, red ENTER! button) is on every page. Password stored as a
-SHA-256 hash; re-prompts on refresh (clears the session unlock when the navigation type is a
-reload) but not on in-site navigation. See README *Security*.
 
 ## Adding a panel
 
