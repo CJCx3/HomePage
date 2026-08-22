@@ -60,8 +60,11 @@ node scripts/sync.mjs            # all projects   (or e.g. node scripts/sync.mjs
 It rebuilds the shipped copies from their sources and re-applies every deploy transform
 automatically — rewriting AweCrap's music to the GitHub Release and scrubbing Home Hub's
 personal data — so you never hand-edit a shipped copy. Review with `git status`, then
-commit. `node scripts/sync.mjs --list` prints the source→dest mapping. (MTTD and DayTrader
-are hand-written install pages, not built from a source app, so they aren't synced.)
+commit. `node scripts/sync.mjs --list` prints the source→dest mapping.
+
+**Edited directly here (not synced):** `mttd/` and `daytrader/` (hand-written install pages)
+and **`moderntools/`** — this repo is now ModernTools' home, so edit the files under
+`moderntools/` directly and commit (there's no separate source to sync from).
 
 ## Files
 

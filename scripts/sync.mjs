@@ -20,8 +20,9 @@
        AweCrap/  Game Test/  Shopping List/  Home Hub/   <- sources
    Adjust a project's `src` below if you move things.
 
-   NOT synced: mttd/ and daytrader/ are hand-written install pages (their apps
-   aren't web builds), so they're maintained directly in the repo.
+   NOT synced (maintained directly in this repo): mttd/ and daytrader/ (hand-written
+   install pages), and moderntools/ (the Modern Exteriors sales-tools site — this repo
+   is now its home; edit the files under moderntools/ directly and commit).
    ========================================================================= */
 import { existsSync, rmSync, mkdirSync, cpSync, readdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
@@ -56,9 +57,6 @@ const PROJECTS = [
     transforms: [] },
   { dest: "ledger",      src: "Ledger",
     copy: ["index.html", "styles.css", "js", "icons", "manifest.webmanifest", "sw.js"],
-    transforms: [] },
-  { dest: "moderntools", src: "ModernTools/ModernTools-main/ModernTools-main",
-    copy: ["index.html", "financing.html", "templates.html", "cost-value.html", "quotes.html", "images"],
     transforms: [] },
   { dest: "home-hub",    src: "Home Hub",
     copy: ["index.html", "ambient.html", "css", "js"],
